@@ -1,14 +1,17 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { Home, AlertTriangle } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom"
+import { useEffect } from "react"
+import { Home, AlertTriangle } from "lucide-react"
 
 const NotFound = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
+    console.error(
+      "404 Error: User attempted to access non-existent route:",
+      location.pathname,
+    )
+  }, [location.pathname])
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
@@ -23,7 +26,8 @@ const NotFound = () => {
           <h1
             className="text-9xl font-black font-display select-none"
             style={{
-              background: "linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)",
+              background:
+                "linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -33,13 +37,21 @@ const NotFound = () => {
             404
           </h1>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-4xl font-bold font-display text-foreground/60">404</span>
+            <span className="text-4xl font-bold font-display text-foreground/60">
+              404
+            </span>
           </div>
         </div>
 
-        <h2 className="text-xl font-bold text-foreground mb-2">Page Not Found</h2>
+        <h2 className="text-xl font-bold text-foreground mb-2">
+          Page Not Found
+        </h2>
         <p className="text-base text-muted-foreground mb-8">
-          The page at <code className="font-mono text-sm bg-muted px-1.5 py-0.5 rounded">{location.pathname}</code> doesn't exist.
+          The page at{" "}
+          <code className="font-mono text-sm bg-muted px-1.5 py-0.5 rounded">
+            {location.pathname}
+          </code>{" "}
+          doesn't exist.
         </p>
 
         <button
@@ -51,7 +63,7 @@ const NotFound = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default NotFound;
+export default NotFound

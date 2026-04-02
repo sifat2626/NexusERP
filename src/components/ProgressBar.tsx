@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react"
 
 interface ProgressBarProps {
-  value: number;
+  value: number
   /** Tailwind gradient classes e.g. "from-info to-info/60" */
-  gradient?: string;
-  height?: "h-1.5" | "h-2" | "h-2.5";
+  gradient?: string
+  height?: "h-1.5" | "h-2" | "h-2.5"
   /** Delay before animation starts (ms) — useful for staggered lists */
-  delay?: number;
-  showPercent?: boolean;
+  delay?: number
+  showPercent?: boolean
 }
 
 const ProgressBar = ({
@@ -17,27 +17,27 @@ const ProgressBar = ({
   delay = 0,
   showPercent = false,
 }: ProgressBarProps) => {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [animated, setAnimated] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [animated, setAnimated] = useState(false)
 
   useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
+    const el = trackRef.current
+    if (!el) return
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !animated) {
           // Optional stagger delay
-          const timer = setTimeout(() => setAnimated(true), delay);
-          return () => clearTimeout(timer);
+          const timer = setTimeout(() => setAnimated(true), delay)
+          return () => clearTimeout(timer)
         }
       },
-      { threshold: 0.2 }
-    );
+      { threshold: 0.2 },
+    )
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [animated, delay]);
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [animated, delay])
 
   return (
     <div className="flex items-center gap-2.5">
@@ -56,12 +56,15 @@ const ProgressBar = ({
         />
       </div>
       {showPercent && (
-        <span className="text-sm font-bold shrink-0" style={{ minWidth: "2.5rem", textAlign: "right" }}>
+        <span
+          className="text-sm font-bold shrink-0"
+          style={{ minWidth: "2.5rem", textAlign: "right" }}
+        >
           {value}%
         </span>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ProgressBar;
+export default ProgressBar

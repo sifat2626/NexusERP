@@ -177,9 +177,7 @@ const ProjectDetails = () => {
                   )}
                   <div className="min-w-0">
                     <p className="text-xs font-medium break-words">{m.title}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {m.status}
-                    </p>
+                    <p className="text-xs text-muted-foreground">{m.status}</p>
                   </div>
                 </div>
               ))}
