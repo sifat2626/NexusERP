@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
 interface ProgressBarProps {
-  /** 0–100 */
   value: number;
   /** Tailwind gradient classes e.g. "from-info to-info/60" */
   gradient?: string;
@@ -57,7 +56,7 @@ const ProgressBar = ({
         />
       </div>
       {showPercent && (
-        <span className="text-xs font-bold shrink-0" style={{ minWidth: "2.5rem", textAlign: "right" }}>
+        <span className="text-sm font-bold shrink-0" style={{ minWidth: "2.5rem", textAlign: "right" }}>
           {value}%
         </span>
       )}

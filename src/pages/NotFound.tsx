@@ -38,8 +38,8 @@ const NotFound = () => {
         </div>
 
         <h2 className="text-xl font-bold text-foreground mb-2">Page Not Found</h2>
-        <p className="text-sm text-muted-foreground mb-8">
-          The page at <code className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded">{location.pathname}</code> doesn't exist.
+        <p className="text-base text-muted-foreground mb-8">
+          The page at <code className="font-mono text-sm bg-muted px-1.5 py-0.5 rounded">{location.pathname}</code> doesn't exist.
         </p>
 
         <button

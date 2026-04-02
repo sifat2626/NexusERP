@@ -45,7 +45,7 @@ const BudgetBar = ({ spent, total, showLabel = true }: BudgetBarProps) => {
   return (
     <div className="space-y-1.5" ref={barRef}>
       {showLabel && (
-        <div className="flex justify-between items-center text-xs">
+        <div className="flex justify-between items-center text-sm">
           <span className="text-muted-foreground">{formatCurrency(spent)} spent</span>
           <span className="font-bold text-foreground/80">{pct}%</span>
         </div>
@@ -67,7 +67,7 @@ const BudgetBar = ({ spent, total, showLabel = true }: BudgetBarProps) => {
       </div>
 
       {showLabel && (
-        <div className="flex justify-between text-[10px] text-muted-foreground/60 mt-0.5">
+        <div className="flex justify-between text-xs text-muted-foreground/60 mt-0.5">
           <span className="font-medium">Budget</span>
           <span>{formatCurrency(total)}</span>
         </div>

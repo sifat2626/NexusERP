@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -61,7 +61,7 @@
 
     /* Glow */
     --glow-cyan: rgba(0, 153, 204, 0.12);
-    --glow-purple: rgba(120, 80, 230, 0.10);
+    --glow-purple: rgba(120, 80, 230, 0.1);
   }
 }
 
@@ -133,38 +133,61 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
-    transition: background-color 0.35s ease, color 0.35s ease;
+    font-family: "Inter", system-ui, sans-serif;
+    transition:
+      background-color 0.35s ease,
+      color 0.35s ease;
   }
 
   /* Light mode body radial */
   :root body {
-    background-image:
-      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0, 153, 204, 0.05) 0%, transparent 60%);
+    background-image: radial-gradient(
+      ellipse 80% 50% at 50% -10%,
+      rgba(0, 153, 204, 0.05) 0%,
+      transparent 60%
+    );
     background-attachment: fixed;
   }
 
   /* Dark mode body radial */
   .dark body {
     background-image:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 212, 255, 0.06) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+      radial-gradient(
+        ellipse 80% 50% at 50% -20%,
+        rgba(0, 212, 255, 0.06) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 80% 80%,
+        rgba(139, 92, 246, 0.05) 0%,
+        transparent 50%
+      );
     background-attachment: fixed;
   }
 
   .font-display {
-    font-family: 'Outfit', system-ui, sans-serif;
+    font-family: "Outfit", system-ui, sans-serif;
   }
 
   .font-mono {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: "JetBrains Mono", monospace;
   }
 
   /* Custom scrollbar */
-  ::-webkit-scrollbar { width: 5px; height: 5px; }
-  ::-webkit-scrollbar-track { background: hsl(var(--muted)); }
-  ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 9999px; }
-  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
 }
 
 @layer components {
@@ -173,28 +196,34 @@
     @apply bg-card rounded-xl border p-5;
     @apply transition-all duration-300;
     @apply hover:border-primary/30 hover:shadow-lg hover:-translate-y-[1px];
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.06);
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
   .dark .stat-card {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03);
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.03);
   }
   .stat-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   }
   .dark .stat-card:hover {
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px hsl(var(--primary)/0.2);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.5),
+      0 0 0 1px hsl(var(--primary) / 0.2);
   }
 
   .glass-card {
-    background: rgba(255,255,255,0.6);
+    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     @apply border rounded-xl;
-    border-color: rgba(0,0,0,0.07);
+    border-color: rgba(0, 0, 0, 0.07);
   }
   .dark .glass-card {
-    background: rgba(255,255,255,0.03);
-    border-color: rgba(255,255,255,0.06);
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.06);
   }
 
   /* Gradient border */
@@ -204,33 +233,52 @@
     border-radius: var(--radius);
   }
   .gradient-border::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: var(--radius);
     padding: 1px;
-    background: linear-gradient(135deg, hsl(var(--primary)/0.3), hsl(var(--accent)/0.15), transparent);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary) / 0.3),
+      hsl(var(--accent) / 0.15),
+      transparent
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
   }
 
   /* ---- Page headers ---- */
-  .page-header { @apply mb-8 animate-fade-in; }
+  .page-header {
+    @apply mb-8 animate-fade-in;
+  }
   .page-title {
     @apply text-3xl font-bold tracking-tight font-display;
-    background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--primary)) 100%);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--foreground)) 0%,
+      hsl(var(--primary)) 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  .page-subtitle { @apply text-sm text-muted-foreground mt-1.5; }
+  .page-subtitle {
+    @apply text-base text-muted-foreground mt-1.5 leading-relaxed;
+  }
 
   /* ---- Metric value ---- */
   .metric-value {
     @apply text-2xl font-bold font-display;
-    background: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--primary)));
+    background: linear-gradient(
+      135deg,
+      hsl(var(--foreground)),
+      hsl(var(--primary))
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -238,37 +286,51 @@
 
   /* ---- Nav glow (dark only, sidebar stays dark always) ---- */
   .nav-active-glow {
-    box-shadow: 0 0 12px hsl(var(--sidebar-primary)/0.4), inset 0 0 12px hsl(var(--sidebar-primary)/0.05);
+    box-shadow:
+      0 0 12px hsl(var(--sidebar-primary) / 0.4),
+      inset 0 0 12px hsl(var(--sidebar-primary) / 0.05);
   }
 
   /* ---- Logo ring ---- */
   .logo-ring {
-    background: linear-gradient(135deg, hsl(var(--sidebar-primary)), hsl(var(--accent)));
+    background: linear-gradient(
+      135deg,
+      hsl(var(--sidebar-primary)),
+      hsl(var(--accent))
+    );
     @apply p-[2px] rounded-xl;
   }
 
   /* ---- Badge ---- */
   .badge {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wide;
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-sm font-semibold tracking-wide;
   }
 
   /* ---- Animated pulse dot ---- */
   .pulse-dot {
     @apply inline-block w-1.5 h-1.5 rounded-full shrink-0;
-    animation: pulse-dot 2s cubic-bezier(0.4,0,0.6,1) infinite;
+    animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
-  @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
+  }
 
   /* ---- Filter pill ---- */
   .filter-pill {
-    @apply flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium;
+    @apply flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium;
     @apply border transition-all duration-200 cursor-pointer select-none;
     @apply bg-card border-border text-muted-foreground;
     @apply hover:border-primary/50 hover:text-primary hover:bg-primary/5;
   }
   .filter-pill.active {
     @apply bg-primary/10 border-primary/40 text-primary;
-    box-shadow: 0 0 0 1px hsl(var(--primary)/0.2);
+    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.2);
   }
 
   /* ---- Theme toggle button ---- */
@@ -283,42 +345,140 @@
   }
 
   /* ---- Data table ---- */
-  .data-table { @apply w-full text-sm; }
-  .data-table thead tr { @apply border-b border-border/50; }
-  .data-table thead th { @apply pb-3 pt-3 px-4 font-semibold text-[11px] uppercase tracking-wider text-muted-foreground text-left; }
-  .data-table thead th:first-child { @apply pl-5; }
-  .data-table thead th:last-child { @apply pr-5; }
-  .data-table tbody tr { @apply border-b border-border/30 transition-colors duration-150; }
-  .data-table tbody tr:last-child { @apply border-0; }
-  .data-table tbody tr:hover { @apply bg-muted/20; }
-  .data-table td { @apply py-3.5 px-4; }
-  .data-table td:first-child { @apply pl-5; }
-  .data-table td:last-child { @apply pr-5; }
+  .data-table {
+    @apply w-full text-sm;
+  }
+  .data-table thead tr {
+    @apply border-b border-border/50;
+  }
+  .data-table thead th {
+    @apply pb-3 pt-3 px-4 font-semibold text-xs uppercase tracking-wide text-muted-foreground text-left;
+  }
+  .data-table thead th:first-child {
+    @apply pl-5;
+  }
+  .data-table thead th:last-child {
+    @apply pr-5;
+  }
+  .data-table tbody tr {
+    @apply border-b border-border/30 transition-colors duration-150;
+  }
+  .data-table tbody tr:last-child {
+    @apply border-0;
+  }
+  .data-table tbody tr:hover {
+    @apply bg-muted/20;
+  }
+  .data-table td {
+    @apply py-3.5 px-4;
+  }
+  .data-table td:first-child {
+    @apply pl-5;
+  }
+  .data-table td:last-child {
+    @apply pr-5;
+  }
 
   /* ---- Glow helpers ---- */
-  .glow-cyan { box-shadow: 0 0 20px var(--glow-cyan), 0 0 60px var(--glow-cyan); }
-  .glow-purple { box-shadow: 0 0 20px var(--glow-purple), 0 0 60px var(--glow-purple); }
+  .glow-cyan {
+    box-shadow:
+      0 0 20px var(--glow-cyan),
+      0 0 60px var(--glow-cyan);
+  }
+  .glow-purple {
+    box-shadow:
+      0 0 20px var(--glow-purple),
+      0 0 60px var(--glow-purple);
+  }
 }
 
 @layer utilities {
   /* ---- Animations ---- */
-  .animate-fade-in  { animation: fade-in  0.45s ease-out both; }
-  .animate-slide-up { animation: slide-up 0.40s ease-out both; }
-  .animate-scale-in { animation: scale-in 0.30s ease-out both; }
-  .animate-pop     { animation: pop      0.35s cubic-bezier(0.34,1.56,0.64,1) both; }
+  .animate-fade-in {
+    animation: fade-in 0.45s ease-out both;
+  }
+  .animate-slide-up {
+    animation: slide-up 0.4s ease-out both;
+  }
+  .animate-scale-in {
+    animation: scale-in 0.3s ease-out both;
+  }
+  .animate-pop {
+    animation: pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
 
-  @keyframes fade-in  { from { opacity:0; transform:translateY(8px);  } to { opacity:1; transform:translateY(0);   } }
-  @keyframes slide-up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0);   } }
-  @keyframes scale-in { from { opacity:0; transform:scale(0.95);      } to { opacity:1; transform:scale(1);        } }
-  @keyframes pop      { from { opacity:0; transform:scale(0.88);      } to { opacity:1; transform:scale(1);        } }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: scale(0.88);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 
   /* Accordion animations (shadcn) */
-  @keyframes accordion-down { from { height:0 } to { height:var(--radix-accordion-content-height) } }
-  @keyframes accordion-up   { from { height:var(--radix-accordion-content-height) } to { height:0 } }
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
 
-  .stagger-1 { animation-delay: 0.05s; }
-  .stagger-2 { animation-delay: 0.10s; }
-  .stagger-3 { animation-delay: 0.15s; }
-  .stagger-4 { animation-delay: 0.20s; }
-  .stagger-5 { animation-delay: 0.25s; }
+  .stagger-1 {
+    animation-delay: 0.05s;
+  }
+  .stagger-2 {
+    animation-delay: 0.1s;
+  }
+  .stagger-3 {
+    animation-delay: 0.15s;
+  }
+  .stagger-4 {
+    animation-delay: 0.2s;
+  }
+  .stagger-5 {
+    animation-delay: 0.25s;
+  }
 }

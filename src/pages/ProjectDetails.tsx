@@ -61,7 +61,7 @@ const ProjectDetails = () => {
               <h1 className="page-title break-words">{project.name}</h1>
               <StatusBadge status={project.status} />
             </div>
-            <p className="text-xs text-muted-foreground font-mono mb-3">
+            <p className="text-sm text-muted-foreground font-mono mb-3">
               {project.projectId}
             </p>
             <div className="flex items-center gap-2 min-w-0">
@@ -72,7 +72,7 @@ const ProjectDetails = () => {
                 <p className="text-sm font-semibold truncate">
                   {project.manager.name}
                 </p>
-                <p className="text-xs text-muted-foreground truncate">
+                <p className="text-sm text-muted-foreground truncate">
                   {project.manager.designation}
                 </p>
               </div>
@@ -87,7 +87,7 @@ const ProjectDetails = () => {
             </div>
             <div className="flex items-center gap-2 bg-muted/40 border border-border/50 px-3 py-2 rounded-lg min-w-0">
               <Mail className="w-3.5 h-3.5 text-primary" />
-              <span className="text-xs truncate">{project.manager.email}</span>
+              <span className="text-sm truncate">{project.manager.email}</span>
             </div>
           </div>
         </div>
@@ -119,7 +119,7 @@ const ProjectDetails = () => {
                   <span className="font-medium text-sm break-words">
                     {cat.name}
                   </span>
-                  <span className="text-xs text-muted-foreground sm:text-right">
+                  <span className="text-sm text-muted-foreground sm:text-right">
                     {formatCurrency(cat.spent)} /{" "}
                     {formatCurrency(cat.allocated)}
                   </span>
@@ -133,7 +133,7 @@ const ProjectDetails = () => {
                   <div className="mt-3 ml-2 sm:ml-4 space-y-2 pt-2 border-t border-border/30">
                     {(cat as any).subCategories.map((sub: any) => (
                       <div key={sub.name}>
-                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-[10px] text-muted-foreground mb-1 gap-1">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-xs text-muted-foreground mb-1 gap-1">
                           <span className="flex items-center gap-1 break-words">
                             <ChevronRight className="w-2.5 h-2.5" /> {sub.name}
                           </span>
@@ -177,7 +177,7 @@ const ProjectDetails = () => {
                   )}
                   <div className="min-w-0">
                     <p className="text-xs font-medium break-words">{m.title}</p>
-                    <p className="text-[10px] text-muted-foreground">
+                    <p className="text-xs text-muted-foreground">
                       {m.status}
                     </p>
                   </div>
@@ -205,7 +205,7 @@ const ProjectDetails = () => {
                       {team.members.map((member, j) => (
                         <div
                           key={j}
-                          className="flex items-start justify-between gap-2 text-xs"
+                          className="flex items-start justify-between gap-2 text-sm"
                         >
                           <div className="flex items-center gap-1.5 min-w-0">
                             <div className="w-5 h-5 rounded-full bg-gradient-to-br from-primary/60 to-accent/60 flex items-center justify-center text-[9px] font-bold text-background">
@@ -251,13 +251,13 @@ const ProjectDetails = () => {
                   <h3 className="font-semibold text-sm break-words">
                     {task.title}
                   </h3>
-                  <p className="text-[10px] font-mono text-muted-foreground mt-0.5">
+                  <p className="text-xs font-mono text-muted-foreground mt-0.5">
                     {task.taskId}
                   </p>
                 </div>
                 <StatusBadge status={task.priority} />
               </div>
-              <p className="text-xs text-muted-foreground mb-3 flex items-center gap-1 break-words">
+              <p className="text-sm text-muted-foreground mb-3 flex items-center gap-1 break-words">
                 <Users className="w-3 h-3" /> {task.assignedTeam}
               </p>
               {/* Progress */}
@@ -280,7 +280,7 @@ const ProjectDetails = () => {
                   {task.subTasks.map((st) => (
                     <div
                       key={st.subTaskId}
-                      className="flex items-center gap-2 text-xs"
+                      className="flex items-center gap-2 text-sm"
                     >
                       {st.status === "Completed" ? (
                         <CheckCircle2 className="w-3 h-3 text-success shrink-0" />

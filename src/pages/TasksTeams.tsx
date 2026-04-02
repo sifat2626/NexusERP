@@ -79,7 +79,7 @@ const TasksTeams = () => {
     <div className="space-y-8 animate-fade-in">
       {/* Header */}
       <div className="page-header">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
           <ListChecks className="w-3.5 h-3.5 text-primary" />
           <span>Work Management</span>
         </div>
@@ -91,7 +91,7 @@ const TasksTeams = () => {
 
       {/* Priority filter */}
       <div className="flex items-center gap-2 flex-wrap">
-        <div className="flex items-center gap-1.5 text-xs text-muted-foreground shrink-0">
+        <div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
           <Filter className="w-3.5 h-3.5" />
           <span>Priority:</span>
         </div>
@@ -101,7 +101,7 @@ const TasksTeams = () => {
           className={`filter-pill ${priorityFilter === "All" ? "active" : ""}`}
         >
           All
-          <span className="w-4 h-4 rounded-full bg-muted flex items-center justify-center text-[10px] font-bold">
+          <span className="w-4 h-4 rounded-full bg-muted flex items-center justify-center text-xs font-bold">
             {allTasks.length}
           </span>
         </button>
@@ -123,7 +123,7 @@ const TasksTeams = () => {
             >
               <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
               {pr}
-              <span className="w-4 h-4 rounded-full bg-muted flex items-center justify-center text-[10px] font-bold">
+              <span className="w-4 h-4 rounded-full bg-muted flex items-center justify-center text-xs font-bold">
                 {allTasks.filter((t) => t.priority === pr).length}
               </span>
             </button>
@@ -133,13 +133,13 @@ const TasksTeams = () => {
         {priorityFilter !== "All" && (
           <button
             onClick={() => setPriorityFilter("All")}
-            className="flex items-center gap-1 text-xs text-muted-foreground hover:text-destructive transition-colors duration-150 ml-1 animate-pop"
+            className="flex items-center gap-1 text-sm text-muted-foreground hover:text-destructive transition-colors duration-150 ml-1 animate-pop"
           >
             <X className="w-3 h-3" /> Clear
           </button>
         )}
 
-        <span className="basis-full sm:basis-auto sm:ml-auto text-xs text-muted-foreground">
+        <span className="basis-full sm:basis-auto sm:ml-auto text-sm text-muted-foreground">
           {filteredTasks.length} task{filteredTasks.length !== 1 ? "s" : ""}
         </span>
       </div>
@@ -157,7 +157,7 @@ const TasksTeams = () => {
               <g.icon className={`w-5 h-5 ${g.accentColor}`} />
             </div>
             <p className="text-2xl font-bold font-display">{g.tasks.length}</p>
-            <p className="text-xs text-muted-foreground">{g.label}</p>
+            <p className="text-sm text-muted-foreground">{g.label}</p>
           </div>
         ))}
       </div>
@@ -176,7 +176,7 @@ const TasksTeams = () => {
               >
                 {group.label}
               </h2>
-              <span className="ml-auto text-xs bg-card border border-border rounded-full px-2 py-0.5 font-bold text-muted-foreground">
+              <span className="ml-auto text-sm bg-card border border-border rounded-full px-2 py-0.5 font-bold text-muted-foreground">
                 {group.tasks.length}
               </span>
             </div>
@@ -185,7 +185,7 @@ const TasksTeams = () => {
             <div className="space-y-3">
               {group.tasks.length === 0 ? (
                 <div className="text-center py-10 rounded-xl border border-dashed border-border/60 bg-muted/10 animate-fade-in">
-                  <p className="text-xs text-muted-foreground italic">
+                  <p className="text-sm text-muted-foreground italic">
                     No tasks here
                   </p>
                 </div>
@@ -203,10 +203,10 @@ const TasksTeams = () => {
                       </h3>
                       <StatusBadge status={task.priority} />
                     </div>
-                    <p className="text-[10px] text-muted-foreground mb-2 font-mono">
+                    <p className="text-xs text-muted-foreground mb-2 font-mono">
                       {task.projectName}
                     </p>
-                    <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground mb-3">
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-3">
                       <Users className="w-3 h-3 shrink-0" />
                       <span>{task.assignedTeam}</span>
                     </div>
@@ -230,7 +230,7 @@ const TasksTeams = () => {
                           >
                             <div className="flex items-center gap-1.5">
                               <ChevronRight className="w-2.5 h-2.5 text-muted-foreground/50 shrink-0" />
-                              <span className="text-[10px] text-muted-foreground">
+                              <span className="text-xs text-muted-foreground">
                                 {st.title}
                               </span>
                             </div>
@@ -255,7 +255,7 @@ const TasksTeams = () => {
           </div>
           <div>
             <h2 className="text-base font-semibold font-display">All Teams</h2>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               {allTeams.length} teams across {projects.length} projects
             </p>
           </div>
@@ -281,7 +281,7 @@ const TasksTeams = () => {
                     <h3 className="font-semibold text-sm truncate">
                       {team.name}
                     </h3>
-                    <p className="text-[10px] text-muted-foreground truncate">
+                    <p className="text-xs text-muted-foreground truncate">
                       {team.projectName}
                     </p>
                   </div>
@@ -293,11 +293,11 @@ const TasksTeams = () => {
                         <div className="w-5 h-5 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-[9px] font-bold text-primary-foreground shrink-0">
                           {member.name.charAt(0)}
                         </div>
-                        <span className="text-[11px] font-medium">
+                        <span className="text-xs font-medium">
                           {member.name}
                         </span>
                       </div>
-                      <span className="text-[10px] text-muted-foreground">
+                      <span className="text-xs text-muted-foreground">
                         {member.role}
                       </span>
                     </div>

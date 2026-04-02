@@ -98,7 +98,7 @@ const AppLayout = () => {
               <h1 className="font-bold text-sm font-display text-sidebar-foreground leading-none">
                 NexusERP
               </h1>
-              <p className="text-[10px] text-sidebar-muted mt-0.5 uppercase tracking-widest">
+              <p className="text-xs text-sidebar-muted mt-0.5 uppercase tracking-widest">
                 Construction Suite
               </p>
             </div>
@@ -107,7 +107,7 @@ const AppLayout = () => {
 
         {/* Nav */}
         <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-          <p className="px-3 mb-3 text-[10px] font-semibold uppercase tracking-widest text-sidebar-muted">
+          <p className="px-3 mb-3 text-xs font-semibold uppercase tracking-widest text-sidebar-muted">
             Main Navigation
           </p>
           {navItems.map((item) => (
@@ -141,7 +141,7 @@ const AppLayout = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <span className="block truncate">{item.label}</span>
-                    <span className="block text-[10px] text-sidebar-muted/80 truncate">
+                    <span className="block text-xs text-sidebar-muted/80 truncate">
                       {item.description}
                     </span>
                   </div>
@@ -177,10 +177,10 @@ const AppLayout = () => {
               <User className="w-4 h-4 text-background" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-xs font-semibold text-sidebar-foreground truncate">
+              <p className="text-sm font-semibold text-sidebar-foreground truncate">
                 Admin User
               </p>
-              <p className="text-[10px] text-sidebar-muted truncate">
+              <p className="text-xs text-sidebar-muted truncate">
                 admin@nexuserp.io
               </p>
             </div>
@@ -202,7 +202,7 @@ const AppLayout = () => {
             backdropFilter: "blur(14px)",
           }}
         >
-          <div className="flex items-center gap-2 text-xs text-muted-foreground min-w-0">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground min-w-0">
             <button
               onClick={() => setMobileMenuOpen(true)}
               className="theme-toggle md:hidden shrink-0"
@@ -219,7 +219,7 @@ const AppLayout = () => {
 
           <div className="flex items-center gap-2">
             {/* Live data badge */}
-            <div className="hidden sm:flex items-center gap-1.5 text-xs text-muted-foreground bg-muted/60 border border-border/60 px-3 py-1.5 rounded-lg">
+            <div className="hidden sm:flex items-center gap-1.5 text-sm text-muted-foreground bg-muted/60 border border-border/60 px-3 py-1.5 rounded-lg">
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
               <span>Live Data</span>
             </div>

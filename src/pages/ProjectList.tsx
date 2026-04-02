@@ -32,7 +32,7 @@ const ProjectList = () => {
     <div className="space-y-8 animate-fade-in">
       {/* Header */}
       <div className="page-header">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
           <FolderKanban className="w-3.5 h-3.5 text-primary" />
           <span>Project Management</span>
         </div>
@@ -44,7 +44,7 @@ const ProjectList = () => {
 
       {/* Filter bar */}
       <div className="flex items-center gap-2 flex-wrap">
-        <div className="flex items-center gap-1.5 text-xs text-muted-foreground shrink-0">
+        <div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
           <Filter className="w-3.5 h-3.5" />
           <span>Filter:</span>
         </div>
@@ -55,7 +55,7 @@ const ProjectList = () => {
           className={`filter-pill ${activeFilter === "All" ? "active" : ""}`}
         >
           <span>All</span>
-          <span className="w-4 h-4 rounded-full bg-muted flex items-center justify-center text-[10px] font-bold">
+          <span className="w-4 h-4 rounded-full bg-muted flex items-center justify-center text-xs font-bold">
             {projects.length}
           </span>
         </button>
@@ -79,7 +79,7 @@ const ProjectList = () => {
               }`}
             />
             <span>{s}</span>
-            <span className="w-4 h-4 rounded-full bg-muted flex items-center justify-center text-[10px] font-bold">
+            <span className="w-4 h-4 rounded-full bg-muted flex items-center justify-center text-xs font-bold">
               {projects.filter((p) => p.status === s).length}
             </span>
           </button>
@@ -89,13 +89,13 @@ const ProjectList = () => {
         {activeFilter !== "All" && (
           <button
             onClick={() => setActiveFilter("All")}
-            className="flex items-center gap-1 text-xs text-muted-foreground hover:text-destructive transition-colors duration-150 ml-1 animate-pop"
+            className="flex items-center gap-1 text-sm text-muted-foreground hover:text-destructive transition-colors duration-150 ml-1 animate-pop"
           >
             <X className="w-3 h-3" /> Clear
           </button>
         )}
 
-        <span className="text-xs text-muted-foreground basis-full sm:basis-auto sm:ml-auto">
+        <span className="text-sm text-muted-foreground basis-full sm:basis-auto sm:ml-auto">
           {filtered.length} of {projects.length} projects
         </span>
       </div>
@@ -112,7 +112,7 @@ const ProjectList = () => {
           </p>
           <button
             onClick={() => setActiveFilter("All")}
-            className="mt-4 text-xs text-primary hover:underline"
+            className="mt-4 text-sm text-primary hover:underline"
           >
             Show all projects
           </button>
@@ -135,7 +135,7 @@ const ProjectList = () => {
                   <h3 className="font-semibold text-foreground truncate group-hover:text-primary transition-colors duration-200">
                     {p.name}
                   </h3>
-                  <p className="text-[10px] text-muted-foreground font-mono mt-0.5">
+                  <p className="text-xs text-muted-foreground font-mono mt-0.5">
                     {p.projectId}
                   </p>
                 </div>
@@ -144,7 +144,7 @@ const ProjectList = () => {
 
               {/* Meta info */}
               <div className="space-y-2 mb-4">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <div className="w-5 h-5 rounded-md bg-muted/60 flex items-center justify-center shrink-0">
                     <User className="w-3 h-3" />
                   </div>
@@ -155,7 +155,7 @@ const ProjectList = () => {
                     · {p.manager.designation}
                   </span>
                 </div>
-                <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
                   <div className="w-5 h-5 rounded-md bg-muted/60 flex items-center justify-center shrink-0">
                     <Calendar className="w-3 h-3" />
                   </div>
@@ -170,7 +170,7 @@ const ProjectList = () => {
 
               {/* Footer */}
               <div className="mt-4 pt-3 border-t border-border/40 flex items-center justify-between gap-2">
-                <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <span className="w-1 h-1 rounded-full bg-primary/60" />
                     {p.tasks.length} tasks
@@ -180,7 +180,7 @@ const ProjectList = () => {
                     {p.teams.length} teams
                   </span>
                 </div>
-                <span className="hidden sm:flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200">
+                <span className="hidden sm:flex items-center gap-1 text-sm font-semibold text-primary opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200">
                   Open <ArrowUpRight className="w-3.5 h-3.5" />
                 </span>
               </div>

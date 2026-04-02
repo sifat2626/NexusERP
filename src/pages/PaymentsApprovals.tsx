@@ -54,7 +54,7 @@ const PaymentsApprovals = () => {
     <div className="space-y-8 animate-fade-in">
       {/* Header */}
       <div className="page-header">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
           <CreditCard className="w-3.5 h-3.5 text-primary" />
           <span>Finance Management</span>
         </div>
@@ -115,7 +115,7 @@ const PaymentsApprovals = () => {
 
       {/* Approval status filter */}
       <div className="flex items-center gap-2 flex-wrap">
-        <div className="flex items-center gap-1.5 text-xs text-muted-foreground shrink-0">
+        <div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
           <Filter className="w-3.5 h-3.5" />
           <span>Approval:</span>
         </div>
@@ -125,7 +125,7 @@ const PaymentsApprovals = () => {
           className={`filter-pill ${filter === "All" ? "active" : ""}`}
         >
           All
-          <span className="w-4 h-4 rounded-full bg-muted flex items-center justify-center text-[10px] font-bold">
+          <span className="w-4 h-4 rounded-full bg-muted flex items-center justify-center text-xs font-bold">
             {allPayments.length}
           </span>
         </button>
@@ -146,7 +146,7 @@ const PaymentsApprovals = () => {
               }`}
             />
             {s}
-            <span className="w-4 h-4 rounded-full bg-muted flex items-center justify-center text-[10px] font-bold">
+            <span className="w-4 h-4 rounded-full bg-muted flex items-center justify-center text-xs font-bold">
               {
                 allPayments.filter(
                   (p) => (p.approvalFlow?.status ?? "Pending") === s,
@@ -159,13 +159,13 @@ const PaymentsApprovals = () => {
         {filter !== "All" && (
           <button
             onClick={() => setFilter("All")}
-            className="flex items-center gap-1 text-xs text-muted-foreground hover:text-destructive transition-colors duration-150 ml-1 animate-pop"
+            className="flex items-center gap-1 text-sm text-muted-foreground hover:text-destructive transition-colors duration-150 ml-1 animate-pop"
           >
             <X className="w-3 h-3" /> Clear
           </button>
         )}
 
-        <span className="basis-full sm:basis-auto sm:ml-auto text-xs text-muted-foreground">
+        <span className="basis-full sm:basis-auto sm:ml-auto text-sm text-muted-foreground">
           {filtered.length} of {allPayments.length} shown
         </span>
       </div>
@@ -182,7 +182,7 @@ const PaymentsApprovals = () => {
           </p>
           <button
             onClick={() => setFilter("All")}
-            className="mt-4 text-xs text-primary hover:underline"
+            className="mt-4 text-sm text-primary hover:underline"
           >
             Show all payments
           </button>
@@ -213,7 +213,7 @@ const PaymentsApprovals = () => {
                         status={payment.approvalFlow?.status ?? "Pending"}
                       />
                     </div>
-                    <div className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground min-w-0">
+                    <div className="flex items-center gap-1.5 mt-1 text-sm text-muted-foreground min-w-0">
                       <Building2 className="w-3 h-3" />
                       <span className="truncate">{payment.projectName}</span>
                     </div>
@@ -223,7 +223,7 @@ const PaymentsApprovals = () => {
                   <p className="text-2xl font-bold font-display">
                     {formatCurrency(payment.amount)}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-0.5">
+                  <p className="text-sm text-muted-foreground mt-0.5">
                     Requested {payment.requestDate}
                   </p>
                 </div>
@@ -233,7 +233,7 @@ const PaymentsApprovals = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
                 {/* Request info */}
                 <div className="rounded-xl bg-muted/20 border border-border/40 p-5">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-4">
+                  <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-4">
                     Request Info
                   </p>
                   <div className="space-y-3">
@@ -256,7 +256,7 @@ const PaymentsApprovals = () => {
 
                 {/* Approval info */}
                 <div className="rounded-xl bg-muted/20 border border-border/40 p-5">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-4">
+                  <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-4">
                     Approval Info
                   </p>
                   {payment.approvalFlow ? (
@@ -298,7 +298,7 @@ const PaymentsApprovals = () => {
                 <div>
                   <div className="flex items-center gap-2 mb-3 px-1">
                     <FileText className="w-3.5 h-3.5 text-muted-foreground" />
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                    <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
                       Invoices ({payment.invoices.length})
                     </p>
                   </div>
@@ -315,7 +315,7 @@ const PaymentsApprovals = () => {
                       <tbody>
                         {payment.invoices.map((inv) => (
                           <tr key={inv.invoiceId}>
-                            <td className="font-mono text-[11px] text-muted-foreground">
+                            <td className="font-mono text-xs text-muted-foreground">
                               {inv.invoiceId}
                             </td>
                             <td className="font-medium">{inv.vendor}</td>
@@ -323,7 +323,7 @@ const PaymentsApprovals = () => {
                               {formatCurrency(inv.amount)}
                             </td>
                             <td className="text-right">
-                              <button className="text-primary hover:text-primary/70 transition-colors inline-flex items-center gap-0.5 text-xs">
+                              <button className="text-primary hover:text-primary/70 transition-colors inline-flex items-center gap-0.5 text-sm">
                                 View <ArrowUpRight className="w-3 h-3" />
                               </button>
                             </td>

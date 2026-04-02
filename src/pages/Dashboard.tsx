@@ -35,7 +35,7 @@ const Dashboard = () => {
     <div className="space-y-8 animate-fade-in">
       {/* Page Header */}
       <div className="page-header">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
           <Activity className="w-3.5 h-3.5 text-primary" />
           <span>Welcome back, Admin</span>
         </div>
@@ -102,11 +102,11 @@ const Dashboard = () => {
               <h2 className="text-base font-semibold text-foreground font-display">
                 Budget Overview
               </h2>
-              <p className="text-xs text-muted-foreground mt-0.5">
+              <p className="text-sm text-muted-foreground mt-0.5">
                 Utilization across all projects
               </p>
             </div>
-            <div className="flex items-center gap-2 text-xs text-primary bg-primary/10 border border-primary/20 px-2.5 py-1.5 rounded-lg">
+            <div className="flex items-center gap-2 text-sm text-primary bg-primary/10 border border-primary/20 px-2.5 py-1.5 rounded-lg">
               <TrendingUp className="w-3.5 h-3.5" />
               <span>{budgetUtilPct}% overall</span>
             </div>
@@ -141,12 +141,12 @@ const Dashboard = () => {
                 >
                   <div className="flex items-center justify-between mb-2">
                     <StatusBadge status={r.severity} />
-                    <span className="text-[10px] text-muted-foreground font-mono">
+                    <span className="text-xs text-muted-foreground font-mono">
                       {r.riskId}
                     </span>
                   </div>
-                  <p className="text-xs font-medium">{r.description}</p>
-                  <p className="text-[10px] text-muted-foreground mt-1.5 leading-relaxed">
+                  <p className="text-sm font-medium">{r.description}</p>
+                  <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">
                     ↳ {r.mitigation}
                   </p>
                 </div>
@@ -171,13 +171,13 @@ const Dashboard = () => {
             <h2 className="text-base font-semibold text-foreground font-display">
               Projects at a Glance
             </h2>
-            <p className="text-xs text-muted-foreground mt-0.5">
+            <p className="text-sm text-muted-foreground mt-0.5">
               {projects.length} active projects
             </p>
           </div>
           <button
             onClick={() => navigate("/projects")}
-            className="flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 font-medium transition-colors"
+            className="flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 font-medium transition-colors"
           >
             View all <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
@@ -203,7 +203,7 @@ const Dashboard = () => {
                   <td>
                     <div>
                       <p className="font-semibold">{p.name}</p>
-                      <p className="text-[10px] font-mono text-muted-foreground">
+                      <p className="text-xs font-mono text-muted-foreground">
                         {p.projectId}
                       </p>
                     </div>
@@ -220,7 +220,7 @@ const Dashboard = () => {
                     />
                   </td>
                   <td>
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-foreground">
+                    <span className="inline-flex items-center gap-1 text-sm font-medium text-foreground">
                       <ListChecks className="w-3.5 h-3.5 text-muted-foreground" />
                       {p.tasks.length}
                     </span>
