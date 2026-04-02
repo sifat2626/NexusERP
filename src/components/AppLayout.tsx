@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { NavLink, Outlet, useLocation } from "react-router-dom"
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom"
 import {
   LayoutDashboard,
   FolderKanban,
@@ -16,37 +16,39 @@ import {
   X,
 } from "lucide-react"
 import { useTheme } from "@/hooks/useTheme"
+import WelcomeTour from "@/components/WelcomeTour"
 
 const navItems = [
   {
     to: "/",
     icon: LayoutDashboard,
     label: "Dashboard",
-    description: "Overview & metrics",
+    description: "See everything",
   },
   {
     to: "/projects",
     icon: FolderKanban,
     label: "Projects",
-    description: "All project tracking",
+    description: "All your projects",
   },
   {
     to: "/tasks",
     icon: ListChecks,
     label: "Tasks & Teams",
-    description: "Work management",
+    description: "Work & people",
   },
   {
     to: "/payments",
     icon: CreditCard,
     label: "Payments",
-    description: "Finance & approvals",
+    description: "Money & approvals",
   },
 ]
 
 const AppLayout = () => {
   const { theme, toggleTheme } = useTheme()
   const location = useLocation()
+  const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -66,8 +68,45 @@ const AppLayout = () => {
     }
   }, [mobileMenuOpen])
 
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // Alt+1: Dashboard
+      if (e.altKey && e.key === "1") {
+        e.preventDefault()
+        navigate("/")
+      }
+      // Alt+2: Projects
+      else if (e.altKey && e.key === "2") {
+        e.preventDefault()
+        navigate("/projects")
+      }
+      // Alt+3: Tasks & Teams
+      else if (e.altKey && e.key === "3") {
+        e.preventDefault()
+        navigate("/tasks")
+      }
+      // Alt+4: Payments
+      else if (e.altKey && e.key === "4") {
+        e.preventDefault()
+        navigate("/payments")
+      }
+      // Alt+T: Toggle theme
+      else if (e.altKey && e.key.toLowerCase() === "t") {
+        e.preventDefault()
+        toggleTheme()
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyPress)
+    return () => window.removeEventListener("keydown", handleKeyPress)
+  }, [navigate, toggleTheme])
+
   return (
     <div className="flex min-h-screen bg-background transition-colors duration-350">
+      {/* Welcome Tour */}
+      <WelcomeTour />
+
       {mobileMenuOpen && (
         <button
           aria-label="Close sidebar"
@@ -76,7 +115,7 @@ const AppLayout = () => {
         />
       )}
 
-      {/* ── Sidebar (always dark) ── */}
+      {/* ── Sidebar ── */}
       <aside
         className={`w-[85vw] max-w-72 md:w-72 flex flex-col fixed h-full z-40 md:z-20 border-r border-sidebar-border transition-transform duration-300 md:translate-x-0 ${
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
@@ -108,9 +147,9 @@ const AppLayout = () => {
         {/* Nav */}
         <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
           <p className="px-3 mb-3 text-xs font-semibold uppercase tracking-widest text-sidebar-muted">
-            Main Navigation
+            Quick Navigation
           </p>
-          {navItems.map((item) => (
+          {navItems.map((item, index) => (
             <NavLink
               key={item.to}
               to={item.to}
@@ -122,6 +161,7 @@ const AppLayout = () => {
                     : "text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent/50 border-transparent"
                 }`
               }
+              title={item.label}
             >
               {({ isActive }) => (
                 <>
@@ -178,10 +218,10 @@ const AppLayout = () => {
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-sm font-semibold text-sidebar-foreground truncate">
-                Admin User
+                John Smith
               </p>
               <p className="text-xs text-sidebar-muted truncate">
-                admin@nexuserp.io
+                Manager
               </p>
             </div>
             <div className="w-1.5 h-1.5 rounded-full bg-success shrink-0" />
@@ -213,15 +253,15 @@ const AppLayout = () => {
             </button>
             <span className="pulse-dot bg-success" />
             <span className="hidden sm:inline truncate">
-              All systems operational
+              Everything is working great
             </span>
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Live data badge */}
+            {/* Updated recently badge */}
             <div className="hidden sm:flex items-center gap-1.5 text-sm text-muted-foreground bg-muted/60 border border-border/60 px-3 py-1.5 rounded-lg">
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              <span>Live Data</span>
+              <span>Updated Now</span>
             </div>
 
             {/* Theme toggle */}

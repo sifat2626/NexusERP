@@ -2,6 +2,8 @@ import { useState } from "react"
 import data from "@/data/data.json"
 import StatusBadge from "@/components/StatusBadge"
 import ProgressBar from "@/components/ProgressBar"
+import HelpTooltip from "@/components/HelpTooltip"
+import Breadcrumbs from "@/components/Breadcrumbs"
 import {
   Users,
   ListChecks,
@@ -40,7 +42,7 @@ const TasksTeams = () => {
 
   const groups = [
     {
-      label: "In Progress",
+      label: "Currently Working On",
       tasks: inProgress,
       accentColor: "text-info",
       barColor: "from-info to-info/60",
@@ -50,7 +52,7 @@ const TasksTeams = () => {
       headerBg: "from-info/10 to-transparent",
     },
     {
-      label: "Not Started",
+      label: "Not Started Yet",
       tasks: notStarted,
       accentColor: "text-muted-foreground",
       barColor: "from-muted-foreground to-muted-foreground/60",
@@ -60,7 +62,7 @@ const TasksTeams = () => {
       headerBg: "from-muted/30 to-transparent",
     },
     {
-      label: "Completed",
+      label: "Finished",
       tasks: completed,
       accentColor: "text-success",
       barColor: "from-success to-success/60",
@@ -77,15 +79,21 @@ const TasksTeams = () => {
 
   return (
     <div className="space-y-8 animate-fade-in">
+      {/* Breadcrumbs */}
+      <Breadcrumbs items={[{ label: "Tasks & Teams" }]} />
+
       {/* Header */}
       <div className="page-header">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
           <ListChecks className="w-3.5 h-3.5 text-primary" />
           <span>Work Management</span>
         </div>
-        <h1 className="page-title">Tasks & Teams</h1>
+        <div className="flex items-center gap-2">
+          <h1 className="page-title">Tasks & Teams</h1>
+          <HelpTooltip content="See all work items organized by their status. You can filter by priority (High, Medium, Low) to focus on urgent tasks." />
+        </div>
         <p className="page-subtitle">
-          All tasks grouped by status and team assignments across projects
+          See all work and teams across all projects
         </p>
       </div>
 
@@ -93,7 +101,7 @@ const TasksTeams = () => {
       <div className="flex items-center gap-2 flex-wrap">
         <div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
           <Filter className="w-3.5 h-3.5" />
-          <span>Priority:</span>
+          <span>Filter by importance:</span>
         </div>
 
         <button
@@ -140,7 +148,8 @@ const TasksTeams = () => {
         )}
 
         <span className="basis-full sm:basis-auto sm:ml-auto text-sm text-muted-foreground">
-          {filteredTasks.length} task{filteredTasks.length !== 1 ? "s" : ""}
+          {filteredTasks.length} work item
+          {filteredTasks.length !== 1 ? "s" : ""}
         </span>
       </div>
 
@@ -186,7 +195,7 @@ const TasksTeams = () => {
               {group.tasks.length === 0 ? (
                 <div className="text-center py-10 rounded-xl border border-dashed border-border/60 bg-muted/10 animate-fade-in">
                   <p className="text-sm text-muted-foreground italic">
-                    No tasks here
+                    No work items in this category
                   </p>
                 </div>
               ) : (
@@ -253,17 +262,23 @@ const TasksTeams = () => {
           <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center">
             <Users className="w-4 h-4 text-accent" />
           </div>
-          <div>
-            <h2 className="text-base font-semibold font-display">All Teams</h2>
-            <p className="text-sm text-muted-foreground">
-              {allTeams.length} teams across {projects.length} projects
-            </p>
+          <div className="flex items-center gap-2">
+            <div>
+              <h2 className="text-base font-semibold font-display">
+                All Teams
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                {allTeams.length} team{allTeams.length !== 1 ? "s" : ""} working
+                on {projects.length} project{projects.length !== 1 ? "s" : ""}
+              </p>
+            </div>
+            <HelpTooltip content="These are all the teams working on various projects. Each team shows its members and their roles." />
           </div>
         </div>
 
         {allTeams.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-8">
-            No teams assigned
+            No teams have been assigned yet
           </p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

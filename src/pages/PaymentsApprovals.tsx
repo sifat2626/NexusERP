@@ -2,6 +2,8 @@ import { useState } from "react"
 import data from "@/data/data.json"
 import StatusBadge from "@/components/StatusBadge"
 import { formatCurrency } from "@/components/BudgetBar"
+import HelpTooltip from "@/components/HelpTooltip"
+import Breadcrumbs from "@/components/Breadcrumbs"
 import {
   CreditCard,
   FileText,
@@ -52,25 +54,31 @@ const PaymentsApprovals = () => {
 
   return (
     <div className="space-y-8 animate-fade-in">
+      {/* Breadcrumbs */}
+      <Breadcrumbs items={[{ label: "Payments & Approvals" }]} />
+
       {/* Header */}
       <div className="page-header">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
           <CreditCard className="w-3.5 h-3.5 text-primary" />
           <span>Finance Management</span>
         </div>
-        <h1 className="page-title">Payments & Approvals</h1>
+        <div className="flex items-center gap-2">
+          <h1 className="page-title">Payments & Approvals</h1>
+          <HelpTooltip content="Track all payment requests, their approval status, and linked invoices. Green means approved, yellow means waiting for approval." />
+        </div>
         <p className="page-subtitle">
-          Track payment requests, invoices, and approval workflow status
+          See payment requests, bills, and who approved them
         </p>
       </div>
 
-      {/* KPI cards */}
+      {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="animate-slide-up stagger-1">
           <StatCard
             title="Payment Requests"
             value={allPayments.length}
-            subtitle={`${pending.length} pending`}
+            subtitle={`${pending.length} waiting for approval`}
             icon={CreditCard}
             iconBg="bg-primary/10"
             iconColor="text-primary"
@@ -80,7 +88,7 @@ const PaymentsApprovals = () => {
           <StatCard
             title="Total Amount"
             value={formatCurrency(totalAmount)}
-            subtitle="All payment requests"
+            subtitle="Sum of all requests"
             icon={FileText}
             iconBg="bg-success/10"
             iconColor="text-success"
@@ -88,9 +96,9 @@ const PaymentsApprovals = () => {
         </div>
         <div className="animate-slide-up stagger-3">
           <StatCard
-            title="Approved"
+            title="Approved Requests"
             value={approved.length}
-            subtitle={`of ${allPayments.length} requests`}
+            subtitle={`of ${allPayments.length} total`}
             icon={CheckCircle2}
             iconBg="bg-success/10"
             iconColor="text-success"
@@ -103,9 +111,9 @@ const PaymentsApprovals = () => {
         </div>
         <div className="animate-slide-up stagger-4">
           <StatCard
-            title="Total Invoices"
+            title="Total Bills"
             value={totalInvoices}
-            subtitle="Linked documents"
+            subtitle="Attached documents"
             icon={Receipt}
             iconBg="bg-accent/10"
             iconColor="text-accent"
@@ -117,7 +125,7 @@ const PaymentsApprovals = () => {
       <div className="flex items-center gap-2 flex-wrap">
         <div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
           <Filter className="w-3.5 h-3.5" />
-          <span>Approval:</span>
+          <span>Filter by approval status:</span>
         </div>
 
         <button
@@ -176,13 +184,13 @@ const PaymentsApprovals = () => {
           <div className="w-14 h-14 rounded-2xl bg-muted/50 flex items-center justify-center mx-auto mb-3">
             <Clock className="w-7 h-7 text-muted-foreground" />
           </div>
-          <p className="font-semibold">No payment requests match this filter</p>
+          <p className="font-semibold text-lg">No payment requests found</p>
           <p className="text-sm text-muted-foreground mt-1">
-            Try a different approval status.
+            No payments match this approval status filter.
           </p>
           <button
             onClick={() => setFilter("All")}
-            className="mt-4 text-sm text-primary hover:underline"
+            className="mt-4 px-4 py-2 text-sm text-primary hover:bg-primary/10 rounded-lg transition-colors"
           >
             Show all payments
           </button>
@@ -205,17 +213,14 @@ const PaymentsApprovals = () => {
                     <CreditCard className="w-5 h-5 text-primary" />
                   </div>
                   <div className="min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="font-bold font-display text-foreground break-words">
-                        {payment.paymentId}
-                      </h3>
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
                       <StatusBadge
                         status={payment.approvalFlow?.status ?? "Pending"}
                       />
                     </div>
-                    <div className="flex items-center gap-1.5 mt-1 text-sm text-muted-foreground min-w-0">
+                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground min-w-0">
                       <Building2 className="w-3 h-3" />
-                      <span className="truncate">{payment.projectName}</span>
+                      <span className="truncate font-medium text-foreground">{payment.projectName}</span>
                     </div>
                   </div>
                 </div>
@@ -234,7 +239,7 @@ const PaymentsApprovals = () => {
                 {/* Request info */}
                 <div className="rounded-xl bg-muted/20 border border-border/40 p-5">
                   <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-4">
-                    Request Info
+                    Who Requested
                   </p>
                   <div className="space-y-3">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm gap-1.5 sm:gap-4">
@@ -257,7 +262,7 @@ const PaymentsApprovals = () => {
                 {/* Approval info */}
                 <div className="rounded-xl bg-muted/20 border border-border/40 p-5">
                   <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-4">
-                    Approval Info
+                    Approval Details
                   </p>
                   {payment.approvalFlow ? (
                     <div className="space-y-3">
@@ -287,7 +292,7 @@ const PaymentsApprovals = () => {
                   ) : (
                     <div className="flex items-center gap-2 text-sm text-muted-foreground py-1">
                       <Clock className="w-4 h-4 shrink-0" />
-                      <span>Awaiting approval</span>
+                      <span>Waiting for someone to approve this</span>
                     </div>
                   )}
                 </div>
@@ -299,38 +304,35 @@ const PaymentsApprovals = () => {
                   <div className="flex items-center gap-2 mb-3 px-1">
                     <FileText className="w-3.5 h-3.5 text-muted-foreground" />
                     <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
-                      Invoices ({payment.invoices.length})
+                      Bills & Invoices ({payment.invoices.length})
                     </p>
+                    <HelpTooltip content="These are the bills attached to this payment request." />
                   </div>
-                  <div className="rounded-xl overflow-x-auto border border-border/40">
-                    <table className="data-table min-w-[620px]">
-                      <thead>
-                        <tr className="bg-muted/30">
-                          <th>Invoice ID</th>
-                          <th>Vendor</th>
-                          <th className="text-right">Amount</th>
-                          <th />
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {payment.invoices.map((inv) => (
-                          <tr key={inv.invoiceId}>
-                            <td className="font-mono text-xs text-muted-foreground">
-                              {inv.invoiceId}
-                            </td>
-                            <td className="font-medium">{inv.vendor}</td>
-                            <td className="text-right font-bold">
-                              {formatCurrency(inv.amount)}
-                            </td>
-                            <td className="text-right">
-                              <button className="text-primary hover:text-primary/70 transition-colors inline-flex items-center gap-0.5 text-sm">
-                                View <ArrowUpRight className="w-3 h-3" />
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                  <div className="space-y-2">
+                    {payment.invoices.map((inv) => (
+                      <div
+                        key={inv.invoiceId}
+                        className="flex items-center justify-between gap-4 p-4 rounded-xl bg-muted/20 border border-border/40 hover:bg-muted/30 transition-colors"
+                      >
+                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                          <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
+                            <Receipt className="w-4 h-4 text-accent" />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="font-semibold text-foreground">{inv.vendor}</p>
+                            <p className="text-sm text-muted-foreground">Supplier</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-4 shrink-0">
+                          <div className="text-right">
+                            <p className="font-bold text-lg">{formatCurrency(inv.amount)}</p>
+                          </div>
+                          <button className="text-primary hover:text-primary/70 transition-colors inline-flex items-center gap-0.5 text-sm font-medium">
+                            View <ArrowUpRight className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}

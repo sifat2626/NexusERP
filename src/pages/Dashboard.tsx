@@ -2,6 +2,7 @@ import data from "@/data/data.json"
 import StatCard from "@/components/StatCard"
 import BudgetBar, { formatCurrency } from "@/components/BudgetBar"
 import StatusBadge from "@/components/StatusBadge"
+import HelpTooltip from "@/components/HelpTooltip"
 import {
   FolderKanban,
   Wallet,
@@ -11,6 +12,8 @@ import {
   TrendingUp,
   ArrowUpRight,
   Activity,
+  Sparkles,
+  User,
 } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
@@ -35,24 +38,29 @@ const Dashboard = () => {
     <div className="space-y-8 animate-fade-in">
       {/* Page Header */}
       <div className="page-header">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-          <Activity className="w-3.5 h-3.5 text-primary" />
-          <span>Welcome back, Admin</span>
+        <div className="flex items-center gap-2 text-sm mb-2">
+          <Sparkles className="w-4 h-4 text-primary" />
+          <span className="text-foreground font-medium">
+            Welcome back!
+          </span>
+          <span className="text-muted-foreground hidden sm:inline">
+            — Here's what's happening today
+          </span>
         </div>
         <h1 className="page-title">{company.name}</h1>
         <p className="page-subtitle">
-          Construction ERP Dashboard — Real-time overview of all projects and
-          operations
+          Your complete overview of all construction projects, budgets, and team
+          activities
         </p>
       </div>
 
-      {/* KPI Cards */}
+      {/* Quick Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="stagger-1 animate-slide-up">
           <StatCard
-            title="Total Projects"
+            title="Active Projects"
             value={projects.length}
-            subtitle={`${projects.filter((p) => p.status === "In Progress").length} in progress`}
+            subtitle={`${projects.filter((p) => p.status === "In Progress").length} currently running`}
             icon={FolderKanban}
             iconBg="bg-primary/10"
             iconColor="text-primary"
@@ -61,9 +69,9 @@ const Dashboard = () => {
         </div>
         <div className="stagger-2 animate-slide-up">
           <StatCard
-            title="Total Budget"
+            title="Total Money Allocated"
             value={formatCurrency(totalBudget)}
-            subtitle={`${formatCurrency(totalSpent)} spent`}
+            subtitle={`${formatCurrency(totalSpent)} already used`}
             icon={Wallet}
             iconBg="bg-success/10"
             iconColor="text-success"
@@ -72,9 +80,9 @@ const Dashboard = () => {
         </div>
         <div className="stagger-3 animate-slide-up">
           <StatCard
-            title="Total Tasks"
+            title="Work Items"
             value={totalTasks}
-            subtitle="Across all projects"
+            subtitle="Things to do across all projects"
             icon={ListChecks}
             iconBg="bg-accent/10"
             iconColor="text-accent"
@@ -83,9 +91,9 @@ const Dashboard = () => {
         </div>
         <div className="stagger-4 animate-slide-up">
           <StatCard
-            title="Payments"
+            title="Payment Requests"
             value={totalPayments}
-            subtitle={`${pendingApprovals} approved`}
+            subtitle={`${pendingApprovals} have been approved`}
             icon={Clock}
             iconBg="bg-warning/10"
             iconColor="text-warning"
@@ -98,17 +106,20 @@ const Dashboard = () => {
         {/* Budget by Project */}
         <div className="lg:col-span-2 stat-card gradient-border">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
-            <div>
-              <h2 className="text-base font-semibold text-foreground font-display">
-                Budget Overview
-              </h2>
-              <p className="text-sm text-muted-foreground mt-0.5">
-                Utilization across all projects
-              </p>
+            <div className="flex items-center gap-2">
+              <div>
+                <h2 className="text-base font-semibold text-foreground font-display">
+                  Money Tracker
+                </h2>
+                <p className="text-sm text-muted-foreground mt-0.5">
+                  See how much of your budget has been spent
+                </p>
+              </div>
+              <HelpTooltip content="This shows the green bar filling up as you spend money from each project's budget. The fuller the bar, the more you've spent." />
             </div>
             <div className="flex items-center gap-2 text-sm text-primary bg-primary/10 border border-primary/20 px-2.5 py-1.5 rounded-lg">
               <TrendingUp className="w-3.5 h-3.5" />
-              <span>{budgetUtilPct}% overall</span>
+              <span>{budgetUtilPct}% spent overall</span>
             </div>
           </div>
           <div className="space-y-5">
@@ -126,12 +137,15 @@ const Dashboard = () => {
 
         {/* Active Risks */}
         <div className="stat-card">
-          <h2 className="text-base font-semibold font-display flex items-center gap-2 mb-5">
-            <span className="w-6 h-6 rounded-lg bg-destructive/10 flex items-center justify-center">
-              <AlertTriangle className="w-3.5 h-3.5 text-destructive" />
-            </span>
-            Active Risks
-          </h2>
+          <div className="flex items-center gap-2 mb-5">
+            <h2 className="text-base font-semibold font-display flex items-center gap-2">
+              <span className="w-6 h-6 rounded-lg bg-destructive/10 flex items-center justify-center">
+                <AlertTriangle className="w-3.5 h-3.5 text-destructive" />
+              </span>
+              Potential Issues
+            </h2>
+            <HelpTooltip content="These are warnings about things that could cause problems. The 'How to fix' section tells you what to do about each issue." />
+          </div>
           <div className="space-y-3">
             {projects.flatMap((p) =>
               p.risks.map((r) => (
@@ -139,15 +153,13 @@ const Dashboard = () => {
                   key={r.riskId}
                   className="p-3 rounded-xl bg-muted/30 border border-border/50 hover:border-border transition-colors"
                 >
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-start justify-between mb-2">
                     <StatusBadge status={r.severity} />
-                    <span className="text-xs text-muted-foreground font-mono">
-                      {r.riskId}
-                    </span>
                   </div>
                   <p className="text-sm font-medium">{r.description}</p>
                   <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">
-                    ↳ {r.mitigation}
+                    <span className="font-semibold">How to fix:</span>{" "}
+                    {r.mitigation}
                   </p>
                 </div>
               )),
@@ -157,79 +169,73 @@ const Dashboard = () => {
                 <div className="w-10 h-10 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-2">
                   <AlertTriangle className="w-5 h-5 text-success" />
                 </div>
-                <p className="text-sm text-muted-foreground">No active risks</p>
+                <p className="text-sm text-muted-foreground">
+                  Great! No problems detected
+                </p>
               </div>
             )}
           </div>
         </div>
       </div>
 
-      {/* Projects Table */}
+      {/* Projects Overview */}
       <div className="stat-card gradient-border">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
-          <div>
-            <h2 className="text-base font-semibold text-foreground font-display">
-              Projects at a Glance
-            </h2>
-            <p className="text-sm text-muted-foreground mt-0.5">
-              {projects.length} active projects
-            </p>
+          <div className="flex items-center gap-2">
+            <div>
+              <h2 className="text-base font-semibold text-foreground font-display">
+                Your Projects
+              </h2>
+              <p className="text-sm text-muted-foreground mt-0.5">
+                Quick look at what you're working on
+              </p>
+            </div>
+            <HelpTooltip content="These are your active projects. Click 'See All' to view the complete list with more details." />
           </div>
           <button
             onClick={() => navigate("/projects")}
             className="flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 font-medium transition-colors"
           >
-            View all <ArrowUpRight className="w-3.5 h-3.5" />
+            See All Projects <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
         </div>
-        <div className="overflow-x-auto">
-          <table className="data-table min-w-[680px]">
-            <thead>
-              <tr>
-                <th>Project</th>
-                <th>Manager</th>
-                <th>Status</th>
-                <th className="w-52">Budget Utilization</th>
-                <th>Tasks</th>
-              </tr>
-            </thead>
-            <tbody>
-              {projects.map((p) => (
-                <tr
-                  key={p.projectId}
-                  className="cursor-pointer"
-                  onClick={() => navigate(`/projects/${p.projectId}`)}
-                >
-                  <td>
-                    <div>
-                      <p className="font-semibold">{p.name}</p>
-                      <p className="text-xs font-mono text-muted-foreground">
-                        {p.projectId}
-                      </p>
-                    </div>
-                  </td>
-                  <td className="text-muted-foreground">{p.manager.name}</td>
-                  <td>
-                    <StatusBadge status={p.status} />
-                  </td>
-                  <td>
-                    <BudgetBar
-                      spent={p.budget.spent}
-                      total={p.budget.total}
-                      showLabel={false}
-                    />
-                  </td>
-                  <td>
-                    <span className="inline-flex items-center gap-1 text-sm font-medium text-foreground">
-                      <ListChecks className="w-3.5 h-3.5 text-muted-foreground" />
-                      {p.tasks.length}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {projects.slice(0, 3).map((p) => (
+            <div
+              key={p.projectId}
+              className="p-4 rounded-xl border border-border/50 hover:border-primary/30 bg-muted/10 hover:bg-muted/20 transition-all duration-200 cursor-pointer group"
+              onClick={() => navigate(`/projects/${p.projectId}`)}
+            >
+              <div className="flex items-start justify-between mb-3">
+                <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors flex-1 pr-2">
+                  {p.name}
+                </h3>
+                <StatusBadge status={p.status} />
+              </div>
+              <div className="space-y-2 mb-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <User className="w-3.5 h-3.5" />
+                  <span className="truncate">{p.manager.name}</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <ListChecks className="w-3.5 h-3.5 text-muted-foreground" />
+                  <span className="font-medium">{p.tasks.length} tasks</span>
+                </div>
+              </div>
+              <BudgetBar spent={p.budget.spent} total={p.budget.total} />
+            </div>
+          ))}
         </div>
+        {projects.length > 3 && (
+          <div className="mt-4 pt-4 border-t border-border/40 text-center">
+            <button
+              onClick={() => navigate("/projects")}
+              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              + {projects.length - 3} more project{projects.length - 3 !== 1 ? "s" : ""}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )

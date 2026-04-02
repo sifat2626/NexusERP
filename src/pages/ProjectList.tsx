@@ -2,6 +2,9 @@ import { useState } from "react"
 import data from "@/data/data.json"
 import StatusBadge from "@/components/StatusBadge"
 import BudgetBar from "@/components/BudgetBar"
+import HelpTooltip from "@/components/HelpTooltip"
+import SearchBar from "@/components/SearchBar"
+import Breadcrumbs from "@/components/Breadcrumbs"
 import { useNavigate } from "react-router-dom"
 import {
   Calendar,
@@ -18,35 +21,60 @@ const ProjectList = () => {
   const projects = data.company.projects
   const navigate = useNavigate()
   const [activeFilter, setActiveFilter] = useState<StatusFilter>("All")
+  const [searchQuery, setSearchQuery] = useState("")
 
   /* Get unique statuses from data */
   const statuses = Array.from(new Set(projects.map((p) => p.status)))
 
-  /* Filtered list */
-  const filtered =
+  /* Apply filters and search */
+  let filtered =
     activeFilter === "All"
       ? projects
       : projects.filter((p) => p.status === activeFilter)
 
+  /* Apply search filter */
+  if (searchQuery.trim()) {
+    const query = searchQuery.toLowerCase()
+    filtered = filtered.filter(
+      (p) =>
+        p.name.toLowerCase().includes(query) ||
+        p.projectId.toLowerCase().includes(query) ||
+        p.manager.name.toLowerCase().includes(query),
+    )
+  }
+
   return (
     <div className="space-y-8 animate-fade-in">
+      {/* Breadcrumbs */}
+      <Breadcrumbs items={[{ label: "Projects" }]} />
+
       {/* Header */}
       <div className="page-header">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
           <FolderKanban className="w-3.5 h-3.5 text-primary" />
           <span>Project Management</span>
         </div>
-        <h1 className="page-title">Projects</h1>
+        <div className="flex items-center gap-2">
+          <h1 className="page-title">All Projects</h1>
+          <HelpTooltip content="Browse all construction projects. Use filters to find specific projects by status, or use the search box to find projects by name." />
+        </div>
         <p className="page-subtitle">
-          All construction projects managed by {data.company.name}
+          Browse and manage all construction projects for {data.company.name}
         </p>
       </div>
+
+      {/* Search Bar */}
+      <SearchBar
+        placeholder="Search by project name, ID, or manager..."
+        onSearch={setSearchQuery}
+        className="max-w-md"
+      />
 
       {/* Filter bar */}
       <div className="flex items-center gap-2 flex-wrap">
         <div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
           <Filter className="w-3.5 h-3.5" />
-          <span>Filter:</span>
+          <span>Filter by status:</span>
         </div>
 
         {/* All pill */}
@@ -96,7 +124,8 @@ const ProjectList = () => {
         )}
 
         <span className="text-sm text-muted-foreground basis-full sm:basis-auto sm:ml-auto">
-          {filtered.length} of {projects.length} projects
+          Showing {filtered.length} of {projects.length} project
+          {projects.length !== 1 ? "s" : ""}
         </span>
       </div>
 
@@ -106,15 +135,20 @@ const ProjectList = () => {
           <div className="w-14 h-14 rounded-2xl bg-muted/50 flex items-center justify-center mb-3">
             <FolderKanban className="w-7 h-7 text-muted-foreground" />
           </div>
-          <p className="font-semibold">No projects match this filter</p>
-          <p className="text-sm text-muted-foreground mt-1">
-            Try selecting a different status.
+          <p className="font-semibold text-lg">No projects found</p>
+          <p className="text-sm text-muted-foreground mt-1 max-w-md">
+            {searchQuery
+              ? `No projects match "${searchQuery}". Try a different search term.`
+              : "No projects match this status filter. Try selecting a different status."}
           </p>
           <button
-            onClick={() => setActiveFilter("All")}
-            className="mt-4 text-sm text-primary hover:underline"
+            onClick={() => {
+              setActiveFilter("All")
+              setSearchQuery("")
+            }}
+            className="mt-4 px-4 py-2 text-sm text-primary hover:bg-primary/10 rounded-lg transition-colors"
           >
-            Show all projects
+            Clear all filters
           </button>
         </div>
       )}
@@ -135,9 +169,6 @@ const ProjectList = () => {
                   <h3 className="font-semibold text-foreground truncate group-hover:text-primary transition-colors duration-200">
                     {p.name}
                   </h3>
-                  <p className="text-xs text-muted-foreground font-mono mt-0.5">
-                    {p.projectId}
-                  </p>
                 </div>
                 <StatusBadge status={p.status} />
               </div>
@@ -181,7 +212,7 @@ const ProjectList = () => {
                   </span>
                 </div>
                 <span className="hidden sm:flex items-center gap-1 text-sm font-semibold text-primary opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200">
-                  Open <ArrowUpRight className="w-3.5 h-3.5" />
+                  View Details <ArrowUpRight className="w-3.5 h-3.5" />
                 </span>
               </div>
             </div>
