@@ -175,8 +175,8 @@ const ProjectDetails = () => {
                   ) : (
                     <Circle className="w-4 h-4 shrink-0 text-muted-foreground" />
                   )}
-                  <div>
-                    <p className="text-xs font-medium">{m.title}</p>
+                  <div className="min-w-0">
+                    <p className="text-xs font-medium break-words">{m.title}</p>
                     <p className="text-[10px] text-muted-foreground">
                       {m.status}
                     </p>
@@ -205,15 +205,17 @@ const ProjectDetails = () => {
                       {team.members.map((member, j) => (
                         <div
                           key={j}
-                          className="flex items-center justify-between text-xs"
+                          className="flex items-start justify-between gap-2 text-xs"
                         >
-                          <div className="flex items-center gap-1.5">
+                          <div className="flex items-center gap-1.5 min-w-0">
                             <div className="w-5 h-5 rounded-full bg-gradient-to-br from-primary/60 to-accent/60 flex items-center justify-center text-[9px] font-bold text-background">
                               {member.name.charAt(0)}
                             </div>
-                            <span className="font-medium">{member.name}</span>
+                            <span className="font-medium truncate">
+                              {member.name}
+                            </span>
                           </div>
-                          <span className="text-muted-foreground">
+                          <span className="text-muted-foreground text-right break-words">
                             {member.role}
                           </span>
                         </div>
@@ -244,16 +246,18 @@ const ProjectDetails = () => {
               className="p-4 rounded-xl border border-border/50 bg-muted/10 hover:bg-muted/20 transition-all animate-slide-up"
               style={{ animationDelay: `${i * 0.04}s` }}
             >
-              <div className="flex items-start justify-between mb-2">
-                <div className="flex-1">
-                  <h3 className="font-semibold text-sm">{task.title}</h3>
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-sm break-words">
+                    {task.title}
+                  </h3>
                   <p className="text-[10px] font-mono text-muted-foreground mt-0.5">
                     {task.taskId}
                   </p>
                 </div>
                 <StatusBadge status={task.priority} />
               </div>
-              <p className="text-xs text-muted-foreground mb-3 flex items-center gap-1">
+              <p className="text-xs text-muted-foreground mb-3 flex items-center gap-1 break-words">
                 <Users className="w-3 h-3" /> {task.assignedTeam}
               </p>
               {/* Progress */}

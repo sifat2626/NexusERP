@@ -200,26 +200,26 @@ const PaymentsApprovals = () => {
             >
               {/* Header row */}
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-5 pb-5 border-b border-border/40">
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-4 min-w-0">
                   <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
                     <CreditCard className="w-5 h-5 text-primary" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="font-bold font-display text-foreground">
+                      <h3 className="font-bold font-display text-foreground break-words">
                         {payment.paymentId}
                       </h3>
                       <StatusBadge
                         status={payment.approvalFlow?.status ?? "Pending"}
                       />
                     </div>
-                    <div className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground min-w-0">
                       <Building2 className="w-3 h-3" />
-                      <span>{payment.projectName}</span>
+                      <span className="truncate">{payment.projectName}</span>
                     </div>
                   </div>
                 </div>
-                <div className="text-right shrink-0">
+                <div className="text-left md:text-right w-full md:w-auto md:shrink-0">
                   <p className="text-2xl font-bold font-display">
                     {formatCurrency(payment.amount)}
                   </p>
@@ -237,7 +237,7 @@ const PaymentsApprovals = () => {
                     Request Info
                   </p>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between text-sm gap-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm gap-1.5 sm:gap-4">
                       <span className="text-muted-foreground shrink-0">
                         Requested By
                       </span>
@@ -245,7 +245,7 @@ const PaymentsApprovals = () => {
                         {payment.requestedBy}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between text-sm gap-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm gap-1.5 sm:gap-4">
                       <span className="text-muted-foreground shrink-0">
                         Date
                       </span>
@@ -261,7 +261,7 @@ const PaymentsApprovals = () => {
                   </p>
                   {payment.approvalFlow ? (
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between text-sm gap-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm gap-1.5 sm:gap-4">
                         <span className="text-muted-foreground shrink-0">
                           Approved By
                         </span>
@@ -269,7 +269,7 @@ const PaymentsApprovals = () => {
                           {payment.approvalFlow.approvedBy}
                         </span>
                       </div>
-                      <div className="flex items-center justify-between text-sm gap-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm gap-1.5 sm:gap-4">
                         <span className="text-muted-foreground shrink-0">
                           Date
                         </span>
@@ -277,7 +277,7 @@ const PaymentsApprovals = () => {
                           {payment.approvalFlow.approvedDate}
                         </span>
                       </div>
-                      <div className="flex items-center justify-between text-sm gap-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm gap-1.5 sm:gap-4">
                         <span className="text-muted-foreground shrink-0">
                           Status
                         </span>

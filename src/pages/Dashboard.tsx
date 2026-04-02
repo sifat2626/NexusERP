@@ -114,8 +114,8 @@ const Dashboard = () => {
           <div className="space-y-5">
             {projects.map((p) => (
               <div key={p.projectId}>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium">{p.name}</span>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span className="text-sm font-medium truncate">{p.name}</span>
                   <StatusBadge status={p.status} />
                 </div>
                 <BudgetBar spent={p.budget.spent} total={p.budget.total} />
@@ -166,7 +166,7 @@ const Dashboard = () => {
 
       {/* Projects Table */}
       <div className="stat-card gradient-border">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
           <div>
             <h2 className="text-base font-semibold text-foreground font-display">
               Projects at a Glance

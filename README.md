@@ -160,6 +160,29 @@ High-level folders:
 - Layout behavior validated for key breakpoints
 - SPA route handling configured for live deployment parity
 
+## Manual Visual QA Checklist
+
+Run this checklist before final submission:
+
+1. Open DevTools device mode and test widths: 320, 375, 768, 1024, 1280, 1440.
+2. On 320 and 375:
+   - Open and close sidebar drawer from header menu.
+   - Confirm overlay appears and background does not scroll.
+   - Navigate all 5 pages and confirm drawer auto-closes after route change.
+3. On all pages:
+   - Check that no text is clipped unexpectedly.
+   - Verify there is no horizontal page overflow.
+4. On table sections:
+   - Confirm table containers scroll horizontally where needed.
+   - Ensure key values remain readable at smallest width.
+5. On cards and badges:
+   - Verify status badges, long names, and dates wrap or truncate without overlap.
+6. Theme behavior:
+   - Confirm dark mode is default on first load.
+   - Toggle theme and refresh to verify persistence.
+7. Deployment check:
+   - Open deep links directly (for example /projects, /tasks, /payments) to confirm SPA routing works in live environment.
+
 ## Submission Checklist
 
 - 5 required pages delivered

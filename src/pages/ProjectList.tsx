@@ -151,11 +151,11 @@ const ProjectList = () => {
                   <span className="font-medium text-foreground/70 truncate">
                     {p.manager.name}
                   </span>
-                  <span className="text-muted-foreground/50 shrink-0">
+                  <span className="text-muted-foreground/50 shrink-0 hidden sm:inline">
                     · {p.manager.designation}
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                   <div className="w-5 h-5 rounded-md bg-muted/60 flex items-center justify-center shrink-0">
                     <Calendar className="w-3 h-3" />
                   </div>
@@ -169,8 +169,8 @@ const ProjectList = () => {
               <BudgetBar spent={p.budget.spent} total={p.budget.total} />
 
               {/* Footer */}
-              <div className="mt-4 pt-3 border-t border-border/40 flex items-center justify-between">
-                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+              <div className="mt-4 pt-3 border-t border-border/40 flex items-center justify-between gap-2">
+                <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <span className="w-1 h-1 rounded-full bg-primary/60" />
                     {p.tasks.length} tasks
@@ -180,7 +180,7 @@ const ProjectList = () => {
                     {p.teams.length} teams
                   </span>
                 </div>
-                <span className="flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200">
+                <span className="hidden sm:flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200">
                   Open <ArrowUpRight className="w-3.5 h-3.5" />
                 </span>
               </div>
