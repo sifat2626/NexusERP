@@ -80,7 +80,7 @@ const PaymentsApprovals = () => {
             value={allPayments.length}
             subtitle={`${pending.length} waiting for approval`}
             icon={CreditCard}
-            iconBg="bg-primary/10"
+            iconBg="bg-primary/15"
             iconColor="text-primary"
           />
         </div>
@@ -90,8 +90,8 @@ const PaymentsApprovals = () => {
             value={formatCurrency(totalAmount)}
             subtitle="Sum of all requests"
             icon={FileText}
-            iconBg="bg-success/10"
-            iconColor="text-success"
+            iconBg="bg-info/15"
+            iconColor="text-info"
           />
         </div>
         <div className="animate-slide-up stagger-3">
@@ -100,13 +100,8 @@ const PaymentsApprovals = () => {
             value={approved.length}
             subtitle={`of ${allPayments.length} total`}
             icon={CheckCircle2}
-            iconBg="bg-success/10"
+            iconBg="bg-success/15"
             iconColor="text-success"
-            trend={
-              allPayments.length > 0
-                ? Math.round((approved.length / allPayments.length) * 100)
-                : 0
-            }
           />
         </div>
         <div className="animate-slide-up stagger-4">
@@ -115,7 +110,7 @@ const PaymentsApprovals = () => {
             value={totalInvoices}
             subtitle="Attached documents"
             icon={Receipt}
-            iconBg="bg-accent/10"
+            iconBg="bg-accent/15"
             iconColor="text-accent"
           />
         </div>

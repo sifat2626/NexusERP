@@ -17,10 +17,10 @@ const BudgetBar = ({ spent, total, showLabel = true }: BudgetBarProps) => {
 
   const gradient =
     pct > 90
-      ? "from-destructive to-destructive/70"
+      ? "from-destructive to-destructive/60"
       : pct > 70
-        ? "from-warning to-warning/70"
-        : "from-primary to-success"
+        ? "from-warning to-warning/60"
+        : "from-primary/60 to-primary/40"
 
   // Intersection-observer driven animation
   const barRef = useRef<HTMLDivElement>(null)
@@ -56,7 +56,7 @@ const BudgetBar = ({ spent, total, showLabel = true }: BudgetBarProps) => {
       )}
 
       {/* Track */}
-      <div className="h-2 bg-muted/60 rounded-full overflow-hidden border border-border/30 relative">
+      <div className="h-1.5 bg-muted/30 rounded-full overflow-hidden border border-border/20 relative">
         {/* Fill — starts at 0, transitions to pct when in view */}
         <div
           ref={fillRef}
