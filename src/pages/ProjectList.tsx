@@ -1,24 +1,32 @@
-import { useState } from "react";
-import data from "@/data/data.json";
-import StatusBadge from "@/components/StatusBadge";
-import BudgetBar from "@/components/BudgetBar";
-import { useNavigate } from "react-router-dom";
-import { Calendar, User, ArrowUpRight, FolderKanban, Filter, X } from "lucide-react";
+import { useState } from "react"
+import data from "@/data/data.json"
+import StatusBadge from "@/components/StatusBadge"
+import BudgetBar from "@/components/BudgetBar"
+import { useNavigate } from "react-router-dom"
+import {
+  Calendar,
+  User,
+  ArrowUpRight,
+  FolderKanban,
+  Filter,
+  X,
+} from "lucide-react"
 
-type StatusFilter = string | "All";
+type StatusFilter = string | "All"
 
 const ProjectList = () => {
-  const projects = data.company.projects;
-  const navigate = useNavigate();
-  const [activeFilter, setActiveFilter] = useState<StatusFilter>("All");
+  const projects = data.company.projects
+  const navigate = useNavigate()
+  const [activeFilter, setActiveFilter] = useState<StatusFilter>("All")
 
   /* Get unique statuses from data */
-  const statuses = Array.from(new Set(projects.map((p) => p.status)));
+  const statuses = Array.from(new Set(projects.map((p) => p.status)))
 
   /* Filtered list */
-  const filtered = activeFilter === "All"
-    ? projects
-    : projects.filter((p) => p.status === activeFilter);
+  const filtered =
+    activeFilter === "All"
+      ? projects
+      : projects.filter((p) => p.status === activeFilter)
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -29,7 +37,9 @@ const ProjectList = () => {
           <span>Project Management</span>
         </div>
         <h1 className="page-title">Projects</h1>
-        <p className="page-subtitle">All construction projects managed by {data.company.name}</p>
+        <p className="page-subtitle">
+          All construction projects managed by {data.company.name}
+        </p>
       </div>
 
       {/* Filter bar */}
@@ -59,10 +69,13 @@ const ProjectList = () => {
           >
             <span
               className={`w-1.5 h-1.5 rounded-full shrink-0 ${
-                s === "In Progress" ? "bg-info"
-                : s === "Completed"  ? "bg-success"
-                : s === "Planning"   ? "bg-warning"
-                : "bg-muted-foreground"
+                s === "In Progress"
+                  ? "bg-info"
+                  : s === "Completed"
+                    ? "bg-success"
+                    : s === "Planning"
+                      ? "bg-warning"
+                      : "bg-muted-foreground"
               }`}
             />
             <span>{s}</span>
@@ -82,7 +95,7 @@ const ProjectList = () => {
           </button>
         )}
 
-        <span className="text-xs text-muted-foreground ml-auto">
+        <span className="text-xs text-muted-foreground basis-full sm:basis-auto sm:ml-auto">
           {filtered.length} of {projects.length} projects
         </span>
       </div>
@@ -94,7 +107,9 @@ const ProjectList = () => {
             <FolderKanban className="w-7 h-7 text-muted-foreground" />
           </div>
           <p className="font-semibold">No projects match this filter</p>
-          <p className="text-sm text-muted-foreground mt-1">Try selecting a different status.</p>
+          <p className="text-sm text-muted-foreground mt-1">
+            Try selecting a different status.
+          </p>
           <button
             onClick={() => setActiveFilter("All")}
             className="mt-4 text-xs text-primary hover:underline"
@@ -120,7 +135,9 @@ const ProjectList = () => {
                   <h3 className="font-semibold text-foreground truncate group-hover:text-primary transition-colors duration-200">
                     {p.name}
                   </h3>
-                  <p className="text-[10px] text-muted-foreground font-mono mt-0.5">{p.projectId}</p>
+                  <p className="text-[10px] text-muted-foreground font-mono mt-0.5">
+                    {p.projectId}
+                  </p>
                 </div>
                 <StatusBadge status={p.status} />
               </div>
@@ -131,8 +148,12 @@ const ProjectList = () => {
                   <div className="w-5 h-5 rounded-md bg-muted/60 flex items-center justify-center shrink-0">
                     <User className="w-3 h-3" />
                   </div>
-                  <span className="font-medium text-foreground/70 truncate">{p.manager.name}</span>
-                  <span className="text-muted-foreground/50 shrink-0">· {p.manager.designation}</span>
+                  <span className="font-medium text-foreground/70 truncate">
+                    {p.manager.name}
+                  </span>
+                  <span className="text-muted-foreground/50 shrink-0">
+                    · {p.manager.designation}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <div className="w-5 h-5 rounded-md bg-muted/60 flex items-center justify-center shrink-0">
@@ -168,7 +189,7 @@ const ProjectList = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ProjectList;
+export default ProjectList

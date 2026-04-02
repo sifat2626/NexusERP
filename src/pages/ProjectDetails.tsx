@@ -1,8 +1,8 @@
-import { useParams, useNavigate } from "react-router-dom";
-import data from "@/data/data.json";
-import StatusBadge from "@/components/StatusBadge";
-import BudgetBar, { formatCurrency } from "@/components/BudgetBar";
-import ProgressBar from "@/components/ProgressBar";
+import { useParams, useNavigate } from "react-router-dom"
+import data from "@/data/data.json"
+import StatusBadge from "@/components/StatusBadge"
+import BudgetBar, { formatCurrency } from "@/components/BudgetBar"
+import ProgressBar from "@/components/ProgressBar"
 import {
   ArrowLeft,
   Mail,
@@ -13,12 +13,12 @@ import {
   FolderKanban,
   Target,
   ChevronRight,
-} from "lucide-react";
+} from "lucide-react"
 
 const ProjectDetails = () => {
-  const { projectId } = useParams();
-  const navigate = useNavigate();
-  const project = data.company.projects.find((p) => p.projectId === projectId);
+  const { projectId } = useParams()
+  const navigate = useNavigate()
+  const project = data.company.projects.find((p) => p.projectId === projectId)
 
   if (!project) {
     return (
@@ -28,7 +28,9 @@ const ProjectDetails = () => {
         </div>
         <div className="text-center">
           <p className="text-lg font-semibold">Project not found</p>
-          <p className="text-sm text-muted-foreground mt-1">The project you're looking for doesn't exist.</p>
+          <p className="text-sm text-muted-foreground mt-1">
+            The project you're looking for doesn't exist.
+          </p>
         </div>
         <button
           onClick={() => navigate("/projects")}
@@ -37,7 +39,7 @@ const ProjectDetails = () => {
           <ArrowLeft className="w-4 h-4" /> Back to Projects
         </button>
       </div>
-    );
+    )
   }
 
   return (
@@ -54,32 +56,38 @@ const ProjectDetails = () => {
       {/* Project header */}
       <div className="stat-card gradient-border">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-5">
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 flex-wrap mb-2">
-              <h1 className="page-title">{project.name}</h1>
+              <h1 className="page-title break-words">{project.name}</h1>
               <StatusBadge status={project.status} />
             </div>
-            <p className="text-xs text-muted-foreground font-mono mb-3">{project.projectId}</p>
-            <div className="flex items-center gap-2">
+            <p className="text-xs text-muted-foreground font-mono mb-3">
+              {project.projectId}
+            </p>
+            <div className="flex items-center gap-2 min-w-0">
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-sm font-bold text-background shrink-0">
                 {project.manager.name.charAt(0)}
               </div>
-              <div>
-                <p className="text-sm font-semibold">{project.manager.name}</p>
-                <p className="text-xs text-muted-foreground">{project.manager.designation}</p>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold truncate">
+                  {project.manager.name}
+                </p>
+                <p className="text-xs text-muted-foreground truncate">
+                  {project.manager.designation}
+                </p>
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-2 text-sm text-muted-foreground shrink-0">
-            <div className="flex items-center gap-2 bg-muted/40 border border-border/50 px-3 py-2 rounded-lg">
+          <div className="flex flex-col gap-2 text-sm text-muted-foreground w-full md:w-auto md:shrink-0">
+            <div className="flex flex-wrap items-center gap-2 bg-muted/40 border border-border/50 px-3 py-2 rounded-lg">
               <Calendar className="w-3.5 h-3.5 text-primary" />
               <span>{project.timeline.startDate}</span>
               <span className="text-primary">→</span>
               <span>{project.timeline.endDate}</span>
             </div>
-            <div className="flex items-center gap-2 bg-muted/40 border border-border/50 px-3 py-2 rounded-lg">
+            <div className="flex items-center gap-2 bg-muted/40 border border-border/50 px-3 py-2 rounded-lg min-w-0">
               <Mail className="w-3.5 h-3.5 text-primary" />
-              <span className="text-xs">{project.manager.email}</span>
+              <span className="text-xs truncate">{project.manager.email}</span>
             </div>
           </div>
         </div>
@@ -93,30 +101,52 @@ const ProjectDetails = () => {
             <div className="w-6 h-6 rounded-lg bg-success/10 flex items-center justify-center">
               <Target className="w-3.5 h-3.5 text-success" />
             </div>
-            <h2 className="text-base font-semibold font-display">Budget Breakdown</h2>
+            <h2 className="text-base font-semibold font-display">
+              Budget Breakdown
+            </h2>
           </div>
-          <BudgetBar spent={project.budget.spent} total={project.budget.total} />
+          <BudgetBar
+            spent={project.budget.spent}
+            total={project.budget.total}
+          />
           <div className="mt-5 space-y-3">
             {project.budget.categories.map((cat) => (
-              <div key={cat.name} className="p-3 rounded-xl bg-muted/20 border border-border/40">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-medium text-sm">{cat.name}</span>
-                  <span className="text-xs text-muted-foreground">
-                    {formatCurrency(cat.spent)} / {formatCurrency(cat.allocated)}
+              <div
+                key={cat.name}
+                className="p-3 rounded-xl bg-muted/20 border border-border/40"
+              >
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1.5 mb-2">
+                  <span className="font-medium text-sm break-words">
+                    {cat.name}
+                  </span>
+                  <span className="text-xs text-muted-foreground sm:text-right">
+                    {formatCurrency(cat.spent)} /{" "}
+                    {formatCurrency(cat.allocated)}
                   </span>
                 </div>
-                <BudgetBar spent={cat.spent} total={cat.allocated} showLabel={false} />
+                <BudgetBar
+                  spent={cat.spent}
+                  total={cat.allocated}
+                  showLabel={false}
+                />
                 {"subCategories" in cat && (cat as any).subCategories && (
-                  <div className="mt-3 ml-4 space-y-2 pt-2 border-t border-border/30">
+                  <div className="mt-3 ml-2 sm:ml-4 space-y-2 pt-2 border-t border-border/30">
                     {(cat as any).subCategories.map((sub: any) => (
                       <div key={sub.name}>
-                        <div className="flex justify-between text-[10px] text-muted-foreground mb-1">
-                          <span className="flex items-center gap-1">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-[10px] text-muted-foreground mb-1 gap-1">
+                          <span className="flex items-center gap-1 break-words">
                             <ChevronRight className="w-2.5 h-2.5" /> {sub.name}
                           </span>
-                          <span>{formatCurrency(sub.spent)} / {formatCurrency(sub.allocated)}</span>
+                          <span className="sm:text-right">
+                            {formatCurrency(sub.spent)} /{" "}
+                            {formatCurrency(sub.allocated)}
+                          </span>
                         </div>
-                        <BudgetBar spent={sub.spent} total={sub.allocated} showLabel={false} />
+                        <BudgetBar
+                          spent={sub.spent}
+                          total={sub.allocated}
+                          showLabel={false}
+                        />
                       </div>
                     ))}
                   </div>
@@ -147,7 +177,9 @@ const ProjectDetails = () => {
                   )}
                   <div>
                     <p className="text-xs font-medium">{m.title}</p>
-                    <p className="text-[10px] text-muted-foreground">{m.status}</p>
+                    <p className="text-[10px] text-muted-foreground">
+                      {m.status}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -164,18 +196,26 @@ const ProjectDetails = () => {
             ) : (
               <div className="space-y-3">
                 {project.teams.map((team) => (
-                  <div key={team.teamId} className="p-3 rounded-xl bg-muted/20 border border-border/40">
+                  <div
+                    key={team.teamId}
+                    className="p-3 rounded-xl bg-muted/20 border border-border/40"
+                  >
                     <p className="text-sm font-semibold mb-2">{team.name}</p>
                     <div className="space-y-1.5">
                       {team.members.map((member, j) => (
-                        <div key={j} className="flex items-center justify-between text-xs">
+                        <div
+                          key={j}
+                          className="flex items-center justify-between text-xs"
+                        >
                           <div className="flex items-center gap-1.5">
                             <div className="w-5 h-5 rounded-full bg-gradient-to-br from-primary/60 to-accent/60 flex items-center justify-center text-[9px] font-bold text-background">
                               {member.name.charAt(0)}
                             </div>
                             <span className="font-medium">{member.name}</span>
                           </div>
-                          <span className="text-muted-foreground">{member.role}</span>
+                          <span className="text-muted-foreground">
+                            {member.role}
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -193,7 +233,9 @@ const ProjectDetails = () => {
           <div className="w-6 h-6 rounded-lg bg-info/10 flex items-center justify-center">
             <CheckCircle2 className="w-3.5 h-3.5 text-info" />
           </div>
-          <h2 className="text-base font-semibold font-display">Tasks ({project.tasks.length})</h2>
+          <h2 className="text-base font-semibold font-display">
+            Tasks ({project.tasks.length})
+          </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {project.tasks.map((task, i) => (
@@ -205,7 +247,9 @@ const ProjectDetails = () => {
               <div className="flex items-start justify-between mb-2">
                 <div className="flex-1">
                   <h3 className="font-semibold text-sm">{task.title}</h3>
-                  <p className="text-[10px] font-mono text-muted-foreground mt-0.5">{task.taskId}</p>
+                  <p className="text-[10px] font-mono text-muted-foreground mt-0.5">
+                    {task.taskId}
+                  </p>
                 </div>
                 <StatusBadge status={task.priority} />
               </div>
@@ -216,7 +260,11 @@ const ProjectDetails = () => {
               <div className="mb-2">
                 <ProgressBar
                   value={task.progress}
-                  gradient={task.progress === 100 ? "from-success to-success/70" : "from-info to-primary"}
+                  gradient={
+                    task.progress === 100
+                      ? "from-success to-success/70"
+                      : "from-info to-primary"
+                  }
                   height="h-1.5"
                   delay={i * 70}
                   showPercent
@@ -226,13 +274,18 @@ const ProjectDetails = () => {
               {task.subTasks.length > 0 && (
                 <div className="mt-2 pt-2 border-t border-border/30 space-y-1.5">
                   {task.subTasks.map((st) => (
-                    <div key={st.subTaskId} className="flex items-center gap-2 text-xs">
+                    <div
+                      key={st.subTaskId}
+                      className="flex items-center gap-2 text-xs"
+                    >
                       {st.status === "Completed" ? (
                         <CheckCircle2 className="w-3 h-3 text-success shrink-0" />
                       ) : (
                         <Circle className="w-3 h-3 text-muted-foreground shrink-0" />
                       )}
-                      <span className={st.status === "Completed" ? "line-through text-muted-foreground" : "text-foreground/70"}>
+                      <span
+                        className={`break-words ${st.status === "Completed" ? "line-through text-muted-foreground" : "text-foreground/70"}`}
+                      >
                         {st.title}
                       </span>
                     </div>
@@ -244,7 +297,7 @@ const ProjectDetails = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProjectDetails;
+export default ProjectDetails

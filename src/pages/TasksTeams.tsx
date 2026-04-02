@@ -1,7 +1,7 @@
-import { useState } from "react";
-import data from "@/data/data.json";
-import StatusBadge from "@/components/StatusBadge";
-import ProgressBar from "@/components/ProgressBar";
+import { useState } from "react"
+import data from "@/data/data.json"
+import StatusBadge from "@/components/StatusBadge"
+import ProgressBar from "@/components/ProgressBar"
 import {
   Users,
   ListChecks,
@@ -11,54 +11,69 @@ import {
   ChevronRight,
   Filter,
   X,
-} from "lucide-react";
+} from "lucide-react"
 
-type PriorityFilter = "All" | string;
+type PriorityFilter = "All" | string
 
 const TasksTeams = () => {
-  const projects = data.company.projects;
-  const [priorityFilter, setPriorityFilter] = useState<PriorityFilter>("All");
+  const projects = data.company.projects
+  const [priorityFilter, setPriorityFilter] = useState<PriorityFilter>("All")
 
   const allTasks = projects.flatMap((p) =>
-    p.tasks.map((t) => ({ ...t, projectName: p.name, projectId: p.projectId }))
-  );
+    p.tasks.map((t) => ({ ...t, projectName: p.name, projectId: p.projectId })),
+  )
 
   /* Unique priorities */
-  const priorities = Array.from(new Set(allTasks.map((t) => t.priority)));
+  const priorities = Array.from(new Set(allTasks.map((t) => t.priority)))
 
   /* Apply priority filter first */
-  const filteredTasks = priorityFilter === "All"
-    ? allTasks
-    : allTasks.filter((t) => t.priority === priorityFilter);
+  const filteredTasks =
+    priorityFilter === "All"
+      ? allTasks
+      : allTasks.filter((t) => t.priority === priorityFilter)
 
-  const completed  = filteredTasks.filter((t) => t.progress === 100);
-  const inProgress = filteredTasks.filter((t) => t.progress > 0 && t.progress < 100);
-  const notStarted = filteredTasks.filter((t) => t.progress === 0);
+  const completed = filteredTasks.filter((t) => t.progress === 100)
+  const inProgress = filteredTasks.filter(
+    (t) => t.progress > 0 && t.progress < 100,
+  )
+  const notStarted = filteredTasks.filter((t) => t.progress === 0)
 
   const groups = [
     {
-      label: "In Progress",  tasks: inProgress,
-      accentColor: "text-info",            barColor: "from-info to-info/60",
-      borderLeft: "border-l-info",         icon: Clock,
-      iconBg: "bg-info/10",               headerBg: "from-info/10 to-transparent",
+      label: "In Progress",
+      tasks: inProgress,
+      accentColor: "text-info",
+      barColor: "from-info to-info/60",
+      borderLeft: "border-l-info",
+      icon: Clock,
+      iconBg: "bg-info/10",
+      headerBg: "from-info/10 to-transparent",
     },
     {
-      label: "Not Started",  tasks: notStarted,
-      accentColor: "text-muted-foreground", barColor: "from-muted-foreground to-muted-foreground/60",
-      borderLeft: "border-l-border",       icon: Circle,
-      iconBg: "bg-muted/50",              headerBg: "from-muted/30 to-transparent",
+      label: "Not Started",
+      tasks: notStarted,
+      accentColor: "text-muted-foreground",
+      barColor: "from-muted-foreground to-muted-foreground/60",
+      borderLeft: "border-l-border",
+      icon: Circle,
+      iconBg: "bg-muted/50",
+      headerBg: "from-muted/30 to-transparent",
     },
     {
-      label: "Completed",    tasks: completed,
-      accentColor: "text-success",          barColor: "from-success to-success/60",
-      borderLeft: "border-l-success",      icon: CheckCircle2,
-      iconBg: "bg-success/10",            headerBg: "from-success/10 to-transparent",
+      label: "Completed",
+      tasks: completed,
+      accentColor: "text-success",
+      barColor: "from-success to-success/60",
+      borderLeft: "border-l-success",
+      icon: CheckCircle2,
+      iconBg: "bg-success/10",
+      headerBg: "from-success/10 to-transparent",
     },
-  ];
+  ]
 
   const allTeams = projects.flatMap((p) =>
-    p.teams.map((t) => ({ ...t, projectName: p.name }))
-  );
+    p.teams.map((t) => ({ ...t, projectName: p.name })),
+  )
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -93,9 +108,13 @@ const TasksTeams = () => {
 
         {priorities.map((pr) => {
           const dotColor =
-            pr === "High"   ? "bg-destructive" :
-            pr === "Medium" ? "bg-warning"     :
-            pr === "Low"    ? "bg-info"        : "bg-muted-foreground";
+            pr === "High"
+              ? "bg-destructive"
+              : pr === "Medium"
+                ? "bg-warning"
+                : pr === "Low"
+                  ? "bg-info"
+                  : "bg-muted-foreground"
           return (
             <button
               key={pr}
@@ -108,7 +127,7 @@ const TasksTeams = () => {
                 {allTasks.filter((t) => t.priority === pr).length}
               </span>
             </button>
-          );
+          )
         })}
 
         {priorityFilter !== "All" && (
@@ -120,16 +139,21 @@ const TasksTeams = () => {
           </button>
         )}
 
-        <span className="ml-auto text-xs text-muted-foreground">
+        <span className="basis-full sm:basis-auto sm:ml-auto text-xs text-muted-foreground">
           {filteredTasks.length} task{filteredTasks.length !== 1 ? "s" : ""}
         </span>
       </div>
 
       {/* Summary stats */}
-      <div className="grid grid-cols-3 gap-4 animate-slide-up stagger-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-slide-up stagger-1">
         {groups.map((g) => (
-          <div key={g.label} className="stat-card text-center group cursor-default">
-            <div className={`w-10 h-10 rounded-xl ${g.iconBg} flex items-center justify-center mx-auto mb-2 transition-transform duration-300 group-hover:scale-110`}>
+          <div
+            key={g.label}
+            className="stat-card text-center group cursor-default"
+          >
+            <div
+              className={`w-10 h-10 rounded-xl ${g.iconBg} flex items-center justify-center mx-auto mb-2 transition-transform duration-300 group-hover:scale-110`}
+            >
               <g.icon className={`w-5 h-5 ${g.accentColor}`} />
             </div>
             <p className="text-2xl font-bold font-display">{g.tasks.length}</p>
@@ -143,9 +167,13 @@ const TasksTeams = () => {
         {groups.map((group) => (
           <div key={group.label} className="flex flex-col gap-3">
             {/* Column header */}
-            <div className={`flex items-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r ${group.headerBg} border border-border/50`}>
+            <div
+              className={`flex items-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r ${group.headerBg} border border-border/50`}
+            >
               <group.icon className={`w-4 h-4 ${group.accentColor}`} />
-              <h2 className={`text-sm font-semibold font-display ${group.accentColor}`}>
+              <h2
+                className={`text-sm font-semibold font-display ${group.accentColor}`}
+              >
                 {group.label}
               </h2>
               <span className="ml-auto text-xs bg-card border border-border rounded-full px-2 py-0.5 font-bold text-muted-foreground">
@@ -157,7 +185,9 @@ const TasksTeams = () => {
             <div className="space-y-3">
               {group.tasks.length === 0 ? (
                 <div className="text-center py-10 rounded-xl border border-dashed border-border/60 bg-muted/10 animate-fade-in">
-                  <p className="text-xs text-muted-foreground italic">No tasks here</p>
+                  <p className="text-xs text-muted-foreground italic">
+                    No tasks here
+                  </p>
                 </div>
               ) : (
                 group.tasks.map((task, i) => (
@@ -168,10 +198,14 @@ const TasksTeams = () => {
                   >
                     {/* Task header */}
                     <div className="flex items-start justify-between mb-1.5">
-                      <h3 className="font-semibold text-sm leading-snug flex-1 pr-2">{task.title}</h3>
+                      <h3 className="font-semibold text-sm leading-snug flex-1 pr-2">
+                        {task.title}
+                      </h3>
                       <StatusBadge status={task.priority} />
                     </div>
-                    <p className="text-[10px] text-muted-foreground mb-2 font-mono">{task.projectName}</p>
+                    <p className="text-[10px] text-muted-foreground mb-2 font-mono">
+                      {task.projectName}
+                    </p>
                     <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground mb-3">
                       <Users className="w-3 h-3 shrink-0" />
                       <span>{task.assignedTeam}</span>
@@ -190,10 +224,15 @@ const TasksTeams = () => {
                     {task.subTasks.length > 0 && (
                       <div className="mt-3 pt-2.5 border-t border-border/40 space-y-1.5">
                         {task.subTasks.map((st) => (
-                          <div key={st.subTaskId} className="flex items-center justify-between">
+                          <div
+                            key={st.subTaskId}
+                            className="flex items-center justify-between"
+                          >
                             <div className="flex items-center gap-1.5">
                               <ChevronRight className="w-2.5 h-2.5 text-muted-foreground/50 shrink-0" />
-                              <span className="text-[10px] text-muted-foreground">{st.title}</span>
+                              <span className="text-[10px] text-muted-foreground">
+                                {st.title}
+                              </span>
                             </div>
                             <StatusBadge status={st.status} />
                           </div>
@@ -223,7 +262,9 @@ const TasksTeams = () => {
         </div>
 
         {allTeams.length === 0 ? (
-          <p className="text-sm text-muted-foreground text-center py-8">No teams assigned</p>
+          <p className="text-sm text-muted-foreground text-center py-8">
+            No teams assigned
+          </p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {allTeams.map((team, i) => (
@@ -237,8 +278,12 @@ const TasksTeams = () => {
                     <Users className="w-3.5 h-3.5 text-primary" />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="font-semibold text-sm truncate">{team.name}</h3>
-                    <p className="text-[10px] text-muted-foreground truncate">{team.projectName}</p>
+                    <h3 className="font-semibold text-sm truncate">
+                      {team.name}
+                    </h3>
+                    <p className="text-[10px] text-muted-foreground truncate">
+                      {team.projectName}
+                    </p>
                   </div>
                 </div>
                 <div className="space-y-1.5 pt-2.5 border-t border-border/40">
@@ -248,9 +293,13 @@ const TasksTeams = () => {
                         <div className="w-5 h-5 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-[9px] font-bold text-primary-foreground shrink-0">
                           {member.name.charAt(0)}
                         </div>
-                        <span className="text-[11px] font-medium">{member.name}</span>
+                        <span className="text-[11px] font-medium">
+                          {member.name}
+                        </span>
                       </div>
-                      <span className="text-[10px] text-muted-foreground">{member.role}</span>
+                      <span className="text-[10px] text-muted-foreground">
+                        {member.role}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -260,7 +309,7 @@ const TasksTeams = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TasksTeams;
+export default TasksTeams

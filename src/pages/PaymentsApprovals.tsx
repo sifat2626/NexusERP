@@ -1,7 +1,7 @@
-import { useState } from "react";
-import data from "@/data/data.json";
-import StatusBadge from "@/components/StatusBadge";
-import { formatCurrency } from "@/components/BudgetBar";
+import { useState } from "react"
+import data from "@/data/data.json"
+import StatusBadge from "@/components/StatusBadge"
+import { formatCurrency } from "@/components/BudgetBar"
 import {
   CreditCard,
   FileText,
@@ -12,39 +12,43 @@ import {
   Building2,
   Filter,
   X,
-} from "lucide-react";
-import StatCard from "@/components/StatCard";
+} from "lucide-react"
+import StatCard from "@/components/StatCard"
 
-type ApprovalFilter = "All" | string;
+type ApprovalFilter = "All" | string
 
 const PaymentsApprovals = () => {
-  const projects = data.company.projects;
-  const [filter, setFilter] = useState<ApprovalFilter>("All");
+  const projects = data.company.projects
+  const [filter, setFilter] = useState<ApprovalFilter>("All")
 
   const allPayments = projects.flatMap((p) =>
     p.payments.map((pay) => ({
       ...pay,
       projectName: p.name,
       projectId: p.projectId,
-    }))
-  );
+    })),
+  )
 
   /* Unique statuses from data */
   const statuses = Array.from(
-    new Set(allPayments.map((p) => p.approvalFlow?.status ?? "Pending"))
-  );
+    new Set(allPayments.map((p) => p.approvalFlow?.status ?? "Pending")),
+  )
 
   const filtered =
     filter === "All"
       ? allPayments
       : allPayments.filter(
-          (p) => (p.approvalFlow?.status ?? "Pending") === filter
-        );
+          (p) => (p.approvalFlow?.status ?? "Pending") === filter,
+        )
 
-  const totalAmount  = allPayments.reduce((s, p) => s + p.amount, 0);
-  const approved     = allPayments.filter((p) => p.approvalFlow?.status === "Approved");
-  const pending      = allPayments.filter((p) => !p.approvalFlow || p.approvalFlow.status !== "Approved");
-  const totalInvoices = allPayments.reduce((s, p) => s + p.invoices.length, 0);
+  const totalAmount = allPayments.reduce((s, p) => s + p.amount, 0)
+  const approved = allPayments.filter(
+    (p) => p.approvalFlow?.status === "Approved",
+  )
+  const pending = allPayments.filter(
+    (p) => !p.approvalFlow || p.approvalFlow.status !== "Approved",
+  )
+  const totalInvoices = allPayments.reduce((s, p) => s + p.invoices.length, 0)
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -134,14 +138,20 @@ const PaymentsApprovals = () => {
           >
             <span
               className={`w-1.5 h-1.5 rounded-full ${
-                s === "Approved" ? "bg-success"
-                : s === "Rejected" ? "bg-destructive"
-                : "bg-muted-foreground"
+                s === "Approved"
+                  ? "bg-success"
+                  : s === "Rejected"
+                    ? "bg-destructive"
+                    : "bg-muted-foreground"
               }`}
             />
             {s}
             <span className="w-4 h-4 rounded-full bg-muted flex items-center justify-center text-[10px] font-bold">
-              {allPayments.filter((p) => (p.approvalFlow?.status ?? "Pending") === s).length}
+              {
+                allPayments.filter(
+                  (p) => (p.approvalFlow?.status ?? "Pending") === s,
+                ).length
+              }
             </span>
           </button>
         ))}
@@ -155,7 +165,7 @@ const PaymentsApprovals = () => {
           </button>
         )}
 
-        <span className="ml-auto text-xs text-muted-foreground">
+        <span className="basis-full sm:basis-auto sm:ml-auto text-xs text-muted-foreground">
           {filtered.length} of {allPayments.length} shown
         </span>
       </div>
@@ -167,8 +177,13 @@ const PaymentsApprovals = () => {
             <Clock className="w-7 h-7 text-muted-foreground" />
           </div>
           <p className="font-semibold">No payment requests match this filter</p>
-          <p className="text-sm text-muted-foreground mt-1">Try a different approval status.</p>
-          <button onClick={() => setFilter("All")} className="mt-4 text-xs text-primary hover:underline">
+          <p className="text-sm text-muted-foreground mt-1">
+            Try a different approval status.
+          </p>
+          <button
+            onClick={() => setFilter("All")}
+            className="mt-4 text-xs text-primary hover:underline"
+          >
             Show all payments
           </button>
         </div>
@@ -191,8 +206,12 @@ const PaymentsApprovals = () => {
                   </div>
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="font-bold font-display text-foreground">{payment.paymentId}</h3>
-                      <StatusBadge status={payment.approvalFlow?.status ?? "Pending"} />
+                      <h3 className="font-bold font-display text-foreground">
+                        {payment.paymentId}
+                      </h3>
+                      <StatusBadge
+                        status={payment.approvalFlow?.status ?? "Pending"}
+                      />
                     </div>
                     <div className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground">
                       <Building2 className="w-3 h-3" />
@@ -201,8 +220,12 @@ const PaymentsApprovals = () => {
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-2xl font-bold font-display">{formatCurrency(payment.amount)}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">Requested {payment.requestDate}</p>
+                  <p className="text-2xl font-bold font-display">
+                    {formatCurrency(payment.amount)}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    Requested {payment.requestDate}
+                  </p>
                 </div>
               </div>
 
@@ -215,11 +238,17 @@ const PaymentsApprovals = () => {
                   </p>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between text-sm gap-4">
-                      <span className="text-muted-foreground shrink-0">Requested By</span>
-                      <span className="font-semibold text-right">{payment.requestedBy}</span>
+                      <span className="text-muted-foreground shrink-0">
+                        Requested By
+                      </span>
+                      <span className="font-semibold text-right">
+                        {payment.requestedBy}
+                      </span>
                     </div>
                     <div className="flex items-center justify-between text-sm gap-4">
-                      <span className="text-muted-foreground shrink-0">Date</span>
+                      <span className="text-muted-foreground shrink-0">
+                        Date
+                      </span>
                       <span className="text-right">{payment.requestDate}</span>
                     </div>
                   </div>
@@ -233,15 +262,25 @@ const PaymentsApprovals = () => {
                   {payment.approvalFlow ? (
                     <div className="space-y-3">
                       <div className="flex items-center justify-between text-sm gap-4">
-                        <span className="text-muted-foreground shrink-0">Approved By</span>
-                        <span className="font-semibold text-right">{payment.approvalFlow.approvedBy}</span>
+                        <span className="text-muted-foreground shrink-0">
+                          Approved By
+                        </span>
+                        <span className="font-semibold text-right">
+                          {payment.approvalFlow.approvedBy}
+                        </span>
                       </div>
                       <div className="flex items-center justify-between text-sm gap-4">
-                        <span className="text-muted-foreground shrink-0">Date</span>
-                        <span className="text-right">{payment.approvalFlow.approvedDate}</span>
+                        <span className="text-muted-foreground shrink-0">
+                          Date
+                        </span>
+                        <span className="text-right">
+                          {payment.approvalFlow.approvedDate}
+                        </span>
                       </div>
                       <div className="flex items-center justify-between text-sm gap-4">
-                        <span className="text-muted-foreground shrink-0">Status</span>
+                        <span className="text-muted-foreground shrink-0">
+                          Status
+                        </span>
                         <StatusBadge status={payment.approvalFlow.status} />
                       </div>
                     </div>
@@ -263,8 +302,8 @@ const PaymentsApprovals = () => {
                       Invoices ({payment.invoices.length})
                     </p>
                   </div>
-                  <div className="rounded-xl overflow-hidden border border-border/40">
-                    <table className="data-table">
+                  <div className="rounded-xl overflow-x-auto border border-border/40">
+                    <table className="data-table min-w-[620px]">
                       <thead>
                         <tr className="bg-muted/30">
                           <th>Invoice ID</th>
@@ -280,7 +319,9 @@ const PaymentsApprovals = () => {
                               {inv.invoiceId}
                             </td>
                             <td className="font-medium">{inv.vendor}</td>
-                            <td className="text-right font-bold">{formatCurrency(inv.amount)}</td>
+                            <td className="text-right font-bold">
+                              {formatCurrency(inv.amount)}
+                            </td>
                             <td className="text-right">
                               <button className="text-primary hover:text-primary/70 transition-colors inline-flex items-center gap-0.5 text-xs">
                                 View <ArrowUpRight className="w-3 h-3" />
@@ -298,7 +339,7 @@ const PaymentsApprovals = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default PaymentsApprovals;
+export default PaymentsApprovals

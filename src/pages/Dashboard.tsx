@@ -1,7 +1,7 @@
-import data from "@/data/data.json";
-import StatCard from "@/components/StatCard";
-import BudgetBar, { formatCurrency } from "@/components/BudgetBar";
-import StatusBadge from "@/components/StatusBadge";
+import data from "@/data/data.json"
+import StatCard from "@/components/StatCard"
+import BudgetBar, { formatCurrency } from "@/components/BudgetBar"
+import StatusBadge from "@/components/StatusBadge"
 import {
   FolderKanban,
   Wallet,
@@ -11,24 +11,25 @@ import {
   TrendingUp,
   ArrowUpRight,
   Activity,
-} from "lucide-react";
-import { useNavigate } from "react-router-dom";
+} from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 const Dashboard = () => {
-  const { company } = data;
-  const projects = company.projects;
+  const { company } = data
+  const projects = company.projects
 
-  const totalBudget = projects.reduce((sum, p) => sum + p.budget.total, 0);
-  const totalSpent = projects.reduce((sum, p) => sum + p.budget.spent, 0);
-  const totalTasks = projects.reduce((sum, p) => sum + p.tasks.length, 0);
+  const totalBudget = projects.reduce((sum, p) => sum + p.budget.total, 0)
+  const totalSpent = projects.reduce((sum, p) => sum + p.budget.spent, 0)
+  const totalTasks = projects.reduce((sum, p) => sum + p.tasks.length, 0)
   const pendingApprovals = projects
     .flatMap((p) => p.payments)
-    .filter((pay) => pay.approvalFlow?.status === "Approved").length;
-  const totalPayments = projects.flatMap((p) => p.payments).length;
-  const totalRisks = projects.flatMap((p) => p.risks).length;
-  const budgetUtilPct = totalBudget > 0 ? Math.round((totalSpent / totalBudget) * 100) : 0;
+    .filter((pay) => pay.approvalFlow?.status === "Approved").length
+  const totalPayments = projects.flatMap((p) => p.payments).length
+  const totalRisks = projects.flatMap((p) => p.risks).length
+  const budgetUtilPct =
+    totalBudget > 0 ? Math.round((totalSpent / totalBudget) * 100) : 0
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -39,7 +40,10 @@ const Dashboard = () => {
           <span>Welcome back, Admin</span>
         </div>
         <h1 className="page-title">{company.name}</h1>
-        <p className="page-subtitle">Construction ERP Dashboard — Real-time overview of all projects and operations</p>
+        <p className="page-subtitle">
+          Construction ERP Dashboard — Real-time overview of all projects and
+          operations
+        </p>
       </div>
 
       {/* KPI Cards */}
@@ -93,10 +97,14 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Budget by Project */}
         <div className="lg:col-span-2 stat-card gradient-border">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
             <div>
-              <h2 className="text-base font-semibold text-foreground font-display">Budget Overview</h2>
-              <p className="text-xs text-muted-foreground mt-0.5">Utilization across all projects</p>
+              <h2 className="text-base font-semibold text-foreground font-display">
+                Budget Overview
+              </h2>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Utilization across all projects
+              </p>
             </div>
             <div className="flex items-center gap-2 text-xs text-primary bg-primary/10 border border-primary/20 px-2.5 py-1.5 rounded-lg">
               <TrendingUp className="w-3.5 h-3.5" />
@@ -127,15 +135,22 @@ const Dashboard = () => {
           <div className="space-y-3">
             {projects.flatMap((p) =>
               p.risks.map((r) => (
-                <div key={r.riskId} className="p-3 rounded-xl bg-muted/30 border border-border/50 hover:border-border transition-colors">
+                <div
+                  key={r.riskId}
+                  className="p-3 rounded-xl bg-muted/30 border border-border/50 hover:border-border transition-colors"
+                >
                   <div className="flex items-center justify-between mb-2">
                     <StatusBadge status={r.severity} />
-                    <span className="text-[10px] text-muted-foreground font-mono">{r.riskId}</span>
+                    <span className="text-[10px] text-muted-foreground font-mono">
+                      {r.riskId}
+                    </span>
                   </div>
                   <p className="text-xs font-medium">{r.description}</p>
-                  <p className="text-[10px] text-muted-foreground mt-1.5 leading-relaxed">↳ {r.mitigation}</p>
+                  <p className="text-[10px] text-muted-foreground mt-1.5 leading-relaxed">
+                    ↳ {r.mitigation}
+                  </p>
                 </div>
-              ))
+              )),
             )}
             {totalRisks === 0 && (
               <div className="text-center py-6">
@@ -153,8 +168,12 @@ const Dashboard = () => {
       <div className="stat-card gradient-border">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-base font-semibold text-foreground font-display">Projects at a Glance</h2>
-            <p className="text-xs text-muted-foreground mt-0.5">{projects.length} active projects</p>
+            <h2 className="text-base font-semibold text-foreground font-display">
+              Projects at a Glance
+            </h2>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              {projects.length} active projects
+            </p>
           </div>
           <button
             onClick={() => navigate("/projects")}
@@ -164,7 +183,7 @@ const Dashboard = () => {
           </button>
         </div>
         <div className="overflow-x-auto">
-          <table className="data-table">
+          <table className="data-table min-w-[680px]">
             <thead>
               <tr>
                 <th>Project</th>
@@ -184,12 +203,22 @@ const Dashboard = () => {
                   <td>
                     <div>
                       <p className="font-semibold">{p.name}</p>
-                      <p className="text-[10px] font-mono text-muted-foreground">{p.projectId}</p>
+                      <p className="text-[10px] font-mono text-muted-foreground">
+                        {p.projectId}
+                      </p>
                     </div>
                   </td>
                   <td className="text-muted-foreground">{p.manager.name}</td>
-                  <td><StatusBadge status={p.status} /></td>
-                  <td><BudgetBar spent={p.budget.spent} total={p.budget.total} showLabel={false} /></td>
+                  <td>
+                    <StatusBadge status={p.status} />
+                  </td>
+                  <td>
+                    <BudgetBar
+                      spent={p.budget.spent}
+                      total={p.budget.total}
+                      showLabel={false}
+                    />
+                  </td>
                   <td>
                     <span className="inline-flex items-center gap-1 text-xs font-medium text-foreground">
                       <ListChecks className="w-3.5 h-3.5 text-muted-foreground" />
@@ -203,7 +232,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard
