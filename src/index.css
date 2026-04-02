@@ -10,22 +10,22 @@
 @layer base {
   :root {
     --background: 220 20% 97%;
-    --foreground: 222 40% 10%;
+    --foreground: 222 40% 5%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 40% 10%;
+    --card-foreground: 222 40% 5%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 40% 10%;
+    --popover-foreground: 222 40% 5%;
 
     --primary: 196 90% 40%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 215 25% 93%;
-    --secondary-foreground: 222 40% 10%;
+    --secondary-foreground: 222 40% 5%;
 
     --muted: 220 15% 93%;
-    --muted-foreground: 220 12% 46%;
+    --muted-foreground: 220 12% 32%;
 
     --accent: 263 70% 58%;
     --accent-foreground: 0 0% 100%;
@@ -37,7 +37,7 @@
     --success-foreground: 0 0% 100%;
 
     --warning: 38 92% 50%;
-    --warning-foreground: 222 40% 10%;
+    --warning-foreground: 222 40% 5%;
 
     --info: 196 90% 40%;
     --info-foreground: 0 0% 100%;
@@ -50,14 +50,14 @@
 
     /* Sidebar - light theme (soft & friendly) */
     --sidebar-background: 210 20% 98%;
-    --sidebar-foreground: 222 47% 11%;
+    --sidebar-foreground: 222 47% 6%;
     --sidebar-primary: 196 90% 42%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 215 35% 88%;
-    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-accent-foreground: 222 47% 6%;
     --sidebar-border: 220 15% 85%;
     --sidebar-ring: 196 90% 42%;
-    --sidebar-muted: 220 15% 42%;
+    --sidebar-muted: 220 15% 32%;
 
     /* Glow */
     --glow-cyan: rgba(0, 153, 204, 0.12);
