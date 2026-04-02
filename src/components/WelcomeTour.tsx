@@ -24,9 +24,14 @@ const tourSteps: TourStep[] = [
       "Use the menu on the left to switch between different sections: Dashboard, Projects, Tasks & Teams, and Payments & Approvals. Click on any item to view that section.",
   },
   {
+    title: "Dark & Light Mode",
+    description:
+      "Prefer dark mode for evening work? or light mode during the day? Click the sun/moon icon in the top right to switch between light and dark themes. Your preference will be saved automatically.",
+  },
+  {
     title: "Get Help Anytime",
     description:
-      "Look for the small '?' icons throughout the app. Click them to get explanations about what you're looking at. You can also change between dark and light themes using the sun/moon icon at the top.",
+      "Look for the small '?' icons throughout the app. Click them to get explanations about what you're looking at.",
   },
   {
     title: "You're Ready!",
